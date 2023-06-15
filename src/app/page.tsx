@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import About from './about/page'
 import Carrousel from './components/carrousel'
 import Filters from './components/filters'
 import Header from './components/header'
@@ -7,14 +5,16 @@ import Products from './components/products'
 
 export default function Home() {
   return (
-    <main className="flex  h-screen flex-col  gap-1">
-      <div className='flex flex-col h-1/2'>
+    <main className="flex  h-screen flex-col pl-20 pr-20 pt-5 pb-5 gap-1 ">
+      <div className='h-full bg-slate-100 bg-opacity-25 rounded shadow-slate-800'>
+      <div className='flex flex-col h-2/4' >
       <Header />
       <Carrousel />
       </div>
-      <div className='flex flex-row h-1/2 justify-items-start'>
+      <div className='flex flex-row h-2/4 justify-items-start'>
         <Filters />
         <Products />
+      </div>
       </div>
     </main>
   )
