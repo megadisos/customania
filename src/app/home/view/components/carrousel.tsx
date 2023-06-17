@@ -4,18 +4,19 @@ import { faArrowRight,faArrowLeft,faCircle,faCircleNotch } from '@fortawesome/fr
 import { CarrouselTypes } from "../../modules/carrousel";
 import React, { useState } from 'react';
 import { AppLogic } from '../../logic/appLogic'
+import Link from 'next/link';
 
 
 // CONSTANTS
 // STYLES 
-const ICONSTYLES = "absolute top-1/2 bg-slate-100 rounded-full bg-opacity-25 p-2 cursor-pointer hover:animate-bounce "
+const ICONSTYLES = "absolute top-1/2 bg-slate-100 rounded-full bg-opacity-25 p-2 cursor-pointer hover:animate-bounce animate-once z-10"
 // IMAGES PATH
 const IMAGESPATH = '/images/carrousel'
 //IMAGES OBJECT
 const CARROUSELIMAGES:CarrouselTypes[] = [
-    {id:1,path:IMAGESPATH+'/carrousel1.jpg',visible:true},
-    {id:2,path:IMAGESPATH+'/carrousel2.jpg',visible:false},
-    {id:3,path:IMAGESPATH+'/carrousel3.jpg',visible:false}
+    {id:1,path:IMAGESPATH+'/carrousel1.jpg',title:'Title 1',description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum sit amet ipsum a porttitor. Sed tempus placerat purus, id euismod diam pulvinar non. ',link:'/',visible:true},
+    {id:2,path:IMAGESPATH+'/carrousel2.jpg',title:'Title 2',description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum sit amet ipsum a porttitor. Sed tempus placerat purus, id euismod diam pulvinar non. ',link:'/',visible:false},
+    {id:3,path:IMAGESPATH+'/carrousel3.jpg',title:'Title 3',description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum sit amet ipsum a porttitor. Sed tempus placerat purus, id euismod diam pulvinar non. ',link:'/',visible:false}
 ]
 
 export default function Carrousel(){
@@ -47,7 +48,7 @@ export default function Carrousel(){
     const components = []
     for(let i =0; i< carrouselImages.length;i++){
        
-        components.push(<FontAwesomeIcon icon={currentImageId === i+1?faCircle:faCircleNotch } size={currentImageId === i+1?'sm':'xs'} style={{color:currentImageId === i+1?'white':'black'}} />)
+        components.push(<FontAwesomeIcon icon={currentImageId === i+1?faCircle:faCircleNotch } size={currentImageId === i+1?'sm':'xs'} style={{color:currentImageId === i+1?'#164E63':'black'}} />)
     }
     return components
    }
@@ -67,9 +68,21 @@ export default function Carrousel(){
             
              {/* carrousel images */}
             {carrouselImages.map(image=>{
-                const styles = image.visible?"w-full h-auto object-cover visible":"w-full h-auto object-cover hidden"
+                const imgStyles = image.visible?"w-full h-auto object-cover visible":"w-full h-auto object-cover hidden"
+                const divTextStyles = 'absolute w-1/2 h-3/4  bg-black bg-opacity-30 p-10 z-0 '
+                // divTextStyles = isFirstImage?divTextStyles+'left-20 top-10 ':isLastImage?'right-20 top-10 ':'left-1/2 top-10'
+                const visibleStyles = image.visible?divTextStyles+'visible':divTextStyles+'hidden'
                 return (
-                    <img src={image.path} className={styles} />
+                    <>
+                    <div className={`${visibleStyles} ${isFirstImage ? "left-20 top-10":(isLastImage?"right-20 top-10":" right-1/2 top-10 transform translate-x-1/2") }`}>
+                        
+                        <p className='text-4xl text-slate-50 mb-3 font-bold animate-jump-in'>{image.title}</p>
+                        <p className='text-2xl text-slate-50 mb-10 animate-jump-in'>{image.description}</p>
+                        <Link href={image.link}><button className="rounded bg-cyan-900 w-1/4 h-1/6 text-slate-50 float-right animate-jump-in hover:animate-jump hover:bg-red-900">Ver mas</button></Link>
+                       
+                    </div>
+                    <img src={image.path} className={imgStyles} />
+                    </>
                 )
             })}
             
