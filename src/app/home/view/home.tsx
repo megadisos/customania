@@ -11,7 +11,7 @@ config.autoAddCss = false
 export default function Home() {
   return (
     <main className="flex  h-screen flex-col pl-20 pr-20 pt-5 pb-5 gap-1 ">
-      <div className='h-full bg-slate-100 bg-opacity-25 rounded shadow-slate-800'>
+      <div className='h-full bg-slate-100 bg-opacity-25 rounded shadow-slate-800 animate-fade-down'>
       <div className='flex flex-col h-2/4' >
       <Header />
       <Carrousel />
