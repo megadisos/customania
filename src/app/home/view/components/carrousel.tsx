@@ -1,9 +1,9 @@
 "use client";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight,faArrowLeft,faCircle,faCircleNotch } from '@fortawesome/free-solid-svg-icons'
-import { CarrouselTypes } from "../modules/carrousel";
+import { CarrouselTypes } from "../../modules/carrousel";
 import React, { useState } from 'react';
-import { AppLogic } from '../logic/appLogic';
+import { AppLogic } from '../../logic/appLogic'
 
 
 // CONSTANTS
@@ -64,6 +64,7 @@ export default function Carrousel(){
             <div className='absolute right-1/2 bottom-2  flex flex-row gap-2 animate-bounce '>
             {renderCircles()}
             </div>
+            
              {/* carrousel images */}
             {carrouselImages.map(image=>{
                 const styles = image.visible?"w-full h-auto object-cover visible":"w-full h-auto object-cover hidden"
