@@ -20,8 +20,8 @@ const renderStars = () =>{
    }
 export default function ProductCard({imagePath,name,price,rating}:ProductCardProps) {
   return (
-   <div className="flex flex-col gap-1 w-1/5 h-96 border-2 border-cyan-900 p-1 cursor-pointer">
-    <img src={imagePath} className='h-3/4'/>
+   <div className="flex flex-col gap-1 w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer">
+    <img src={imagePath} className='h-3/4 '/>
     <p>{name}</p>
     <p>$ {price}</p>
     <p>{renderStars()}</p>
