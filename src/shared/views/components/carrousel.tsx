@@ -1,9 +1,9 @@
 "use client";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight,faArrowLeft,faCircle,faCircleNotch } from '@fortawesome/free-solid-svg-icons'
-import { CarrouselTypes } from "../../modules/carrousel";
+import { CarrouselTypes } from "../../../app/home/modules/carrousel";
 import React, { useState } from 'react';
-import { AppLogic } from '../../logic/appLogic'
+import { AppLogic } from '../../../app/home/logic/appLogic'
 import Link from 'next/link';
 
 

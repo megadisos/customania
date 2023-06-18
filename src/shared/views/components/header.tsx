@@ -16,7 +16,7 @@ export default function Header(){
             <div className="flex flex-row w-3/6 justify-end items-center animate-fade-down">
                 <ul className="flex flex-row gap-4 mr-5 font-medium">
                     <li className={`${menuSy} ${pathname==="/"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Home </Link></li>
-                    <li className={`${menuSy} ${pathname==="/categories"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Categorias</Link></li>
+                    <li className={`${menuSy} ${pathname==="/categories"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Productos</Link></li>
                     <li className={`${menuSy} ${pathname==="/about"?"border-b-2 border-cyan-900":""}`}><Link href='/about'>Acerca de</Link></li>
                     <li className="hover:text-xl"><FontAwesomeIcon icon={faCircleUser} size='lg' title="Iniciar sesion" style={{'cursor':'pointer'}}/></li>
                     <li className="hover:text-xl"><FontAwesomeIcon icon={faCartShopping} size='lg' title="Carrito de compras" style={{'cursor':'pointer'}} /></li>
