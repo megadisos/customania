@@ -5,6 +5,7 @@ import { CarrouselTypes } from "../../../app/home/modules/carrousel";
 import React, { useState } from 'react';
 import { AppLogic } from '../../../app/home/logic/appLogic'
 import Link from 'next/link';
+import Button from './button';
 
 
 // CONSTANTS
@@ -78,7 +79,7 @@ export default function Carrousel(){
                         
                         <p className='text-4xl text-slate-50 mb-3 font-bold animate-jump-in'>{image.title}</p>
                         <p className='text-2xl text-slate-50 mb-10 animate-jump-in'>{image.description}</p>
-                        <Link href={image.link}><button className="rounded bg-cyan-900 w-1/4 h-1/6 text-slate-50 float-right animate-jump-in hover:animate-jump hover:bg-red-900">Ver mas</button></Link>
+                        <Link href={image.link}><Button name="Ver mas" position='right' size='25%' type='normal'/></Link>
                        
                     </div>
                     <img src={image.path} className={imgStyles} />
