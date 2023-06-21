@@ -12,7 +12,6 @@ config.autoAddCss = false
 export default function Home() {
   return (
     <Layout  hasCarrousel={true} >
-      <Filters />
       <Products />
     </Layout>
   )

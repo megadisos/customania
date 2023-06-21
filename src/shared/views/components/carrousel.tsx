@@ -10,7 +10,7 @@ import Button from './button';
 
 // CONSTANTS
 // STYLES 
-const ICONSTYLES = "absolute top-1/2 bg-slate-100 rounded-full bg-opacity-25 p-2 cursor-pointer hover:animate-bounce animate-once z-10"
+export const ICONSTYLES = "absolute top-1/2 bg-slate-100 rounded-full bg-opacity-25 p-2 cursor-pointer hover:animate-bounce animate-once z-10"
 // IMAGES PATH
 const IMAGESPATH = '/images/carrousel'
 //IMAGES OBJECT
