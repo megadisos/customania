@@ -19,13 +19,13 @@ export default function Button({name,onClick,size,position,type}:ButtonProps){
     const generateSize = (size:sizeType)=>{
         switch(size){
             case 'full':
-                return 'w-full'
+                return 'md:w-full'
             case '25%':
-                return 'w-1/4'
+                return 'md:w-1/4'
             case '50%':
-                return 'w-2/4'
+                return 'md:w-2/4'
             case '75%':
-                return 'w-3/4'
+                return 'md:w-3/4'
         }
     }
     const generateColor = (buttonType:buttonType) =>{
@@ -37,7 +37,7 @@ export default function Button({name,onClick,size,position,type}:ButtonProps){
         }
     }
     const finalPosition = position === 'right'?'float-right':'float-left'
-    const baseStyles = `rounded w-2/4 ${generateColor(type)} md:${generateSize(size)} h-1/6 ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
+    const baseStyles = `rounded w-2/4 ${generateColor(type)} ${generateSize(size)} h-1/6 ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
     return (
         <button onClick={onClick} className={baseStyles}>{name}</button>
         )
