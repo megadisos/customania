@@ -12,7 +12,7 @@ export default function Header(){
     const menuSy = 'hover:animate-wiggle hover:text-xl'
     const [showMenu,setShowMenu] = useState(false)
     return (
-        <div className="flex flex-row  h-1/6 bg-gradient-to-l from-red-900 via-amber-400 to-cyan-900 ">
+        <div className="flex flex-row  h-14 bg-gradient-to-l from-red-900 via-amber-400 to-cyan-900 ">
             <div className="flex flex-row w-3/6 items-center">
             {/* <h1 className="flex ml-3 items-center w-1/2 h-full text-5xl text-amber-400">CUSTOMANIA</h1> */}
             </div>

@@ -54,7 +54,7 @@ export default function Carrousel(){
     return components
    }
     return (
-        <div className="relative flex flex-row h-5/6 w-full static">
+        <div className="relative flex flex-row h-full w-full static">
             {/* arrows icons */}
            {!isLastImage && <div id="arrow-right" className={ICONSTYLES+ ' right-10'} onClick={()=>handleCarrousel('right')}>
             <FontAwesomeIcon icon={faArrowRight} size='2xl'/>
@@ -69,7 +69,7 @@ export default function Carrousel(){
             
              {/* carrousel images */}
             {carrouselImages.map(image=>{
-                const imgStyles = image.visible?"w-full h-auto object-cover visible":"w-full h-auto object-cover hidden"
+                const imgStyles = image.visible?"w-full h-96 object-cover visible":"w-full h-96 object-cover hidden"
                 const divTextStyles = 'absolute w-1/2 h-3/4  bg-black bg-opacity-30 p-10 z-0 '
                 // divTextStyles = isFirstImage?divTextStyles+'left-20 top-10 ':isLastImage?'right-20 top-10 ':'left-1/2 top-10'
                 const visibleStyles = image.visible?divTextStyles+'visible':divTextStyles+'hidden'
