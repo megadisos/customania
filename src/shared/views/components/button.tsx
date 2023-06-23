@@ -37,7 +37,7 @@ export default function Button({name,onClick,size,position,type}:ButtonProps){
         }
     }
     const finalPosition = position === 'right'?'float-right':'float-left'
-    const baseStyles = `rounded ${generateColor(type)} ${generateSize(size)} h-1/6 ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
+    const baseStyles = `rounded w-2/4 ${generateColor(type)} md:${generateSize(size)} h-1/6 ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
     return (
         <button onClick={onClick} className={baseStyles}>{name}</button>
         )

@@ -77,8 +77,8 @@ export default function Carrousel(){
                     <>
                     <div className={`${visibleStyles} ${isFirstImage ? "left-20 top-10":(isLastImage?"right-20 top-10":" right-1/2 top-10 transform translate-x-1/2") }`}>
                         
-                        <p className='text-4xl text-slate-50 mb-3 font-bold animate-jump-in'>{image.title}</p>
-                        <p className='text-2xl text-slate-50 mb-10 animate-jump-in'>{image.description}</p>
+                        <p className='text-lg  text-slate-50 mb-1 font-bold animate-jump-in md:text-4xl md:mb-3'>{image.title}</p>
+                        <p className='text-xs text-slate-50 mb-5 animate-jump-in lg:text-xl xl:text-2xl'>{image.description}</p>
                         <Link href={image.link}><Button name="Ver mas" position='right' size='25%' type='normal'/></Link>
                        
                     </div>
