@@ -16,8 +16,6 @@ import {
 
 
 export default function Products(){
-
-    const queryClient =  useQueryClient()
     const query = useQuery('products',ProductsLogic.getAllProducts)
     const products = query.data
     const [viewLimit,setViewLimit] = useState({minor:0,mayor:4})
@@ -36,7 +34,6 @@ export default function Products(){
             setShowRightArrow(true)
         } 
     }
-    console.log(query.data)
     return (
         <div className="relative flex flex-col h-full   w-full p-4">
             <TitleHeader title={'Nuevo'}/>

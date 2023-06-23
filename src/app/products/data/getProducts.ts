@@ -7,7 +7,6 @@ const API =process.env.NEXT_PUBLIC_API_ROOT
 
 
 export const getAllDataProducts=async ():Promise<Product[]>=>{
-    console.log(API)
     const path = BASE_API  + API+ PRODUCTS
     const response:AxiosResponse<Product[]> = await axios.get(path)
     return response.data
