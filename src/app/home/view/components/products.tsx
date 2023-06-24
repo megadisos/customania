@@ -46,7 +46,7 @@ export default function Products(){
                     <div className="relative flex flex-col h-full mb-5  w-full p-4">
          
                     <TitleHeader title={section.title} icon={faGifts}/>
-                    <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-2">
+                    <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-4 mb-10">
                         {eval(section.arrayName) && eval(section.arrayName).filter((pr:Product,index:number)=>index<=9).filter((pr: Product,index: number)=>index>=section.productLimit.minor && index<=section.productLimit.mayor).map((product: Product)=>{
                             return  <ProductCard imagePath={product.imagepath} name={product.name} price={product.price} rating={product.rating} section={(section.title as SectionType)} offer={product.offer}/>
                         })}
@@ -59,8 +59,6 @@ export default function Products(){
                     </div> }
            
                     </div>
-                
-                    <hr className="mt-5"></hr>
                 </div>
                 )
             })}
