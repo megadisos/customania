@@ -1,6 +1,6 @@
 'use client'
 import { ProductsLogic } from "@/app/products/logic/productsLogic";
-import { Product } from "@/app/products/models/products";
+import { Product, SectionType } from "@/app/products/models/products";
 import ProductCard from "@/app/products/view/components/productCard";
 import { ICONSTYLES } from "@/shared/views/components/carrousel";
 import TitleHeader from "@/shared/views/components/titleHeader";
@@ -13,7 +13,7 @@ import {
   } from 'react-query'
 
 
-const  homeSections = [{title:'Ofertas',arrayName:'productsByOffers',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas reciente',arrayName:'productsByDate',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas destacado',arrayName:'productsByRating',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
+const  homeSections = [{title:'Offers',arrayName:'productsByOffers',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Recent',arrayName:'productsByDate',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'outstanding',arrayName:'productsByRating',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
 export default function Products(){
     const query1 = useQuery('productsByDate',ProductsLogic.getProductsByRecentDate)
     const query2 = useQuery('productsByOffer',ProductsLogic.getProductsByOffers)
@@ -48,7 +48,7 @@ export default function Products(){
                     <TitleHeader title={section.title} icon={faGifts}/>
                     <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-2">
                         {eval(section.arrayName) && eval(section.arrayName).filter((pr:Product,index:number)=>index<=9).filter((pr: Product,index: number)=>index>=section.productLimit.minor && index<=section.productLimit.mayor).map((product: Product)=>{
-                            return  <ProductCard imagePath={product.imagepath} name={product.name} price={product.price} rating={product.rating}/>
+                            return  <ProductCard imagePath={product.imagepath} name={product.name} price={product.price} rating={product.rating} section={(section.title as SectionType)} offer={product.offer}/>
                         })}
                        {section.arrows.right  && <div id="arrow-right" className={ICONSTYLES+ ' right-10'} onClick={()=>handleArrowsButton('right',section.title)}>
                     <FontAwesomeIcon icon={faArrowRight} size='2xl'/>
