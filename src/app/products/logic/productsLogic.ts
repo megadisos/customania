@@ -1,5 +1,8 @@
-import { getAllProducts } from "./getProducts";
+import { getAllProducts, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
 
 export const ProductsLogic = {
-    getAllProducts
+    getAllProducts,
+    getProductsByRecentDate,
+    getProductsByOffers,
+    getProductsByRating
 }

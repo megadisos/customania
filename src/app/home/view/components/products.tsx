@@ -13,10 +13,14 @@ import {
   } from 'react-query'
 
 
-const  homeSections = [{title:'Ofertas',arrayName:'products',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas reciente',arrayName:'products',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas destacado',arrayName:'products',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
+const  homeSections = [{title:'Ofertas',arrayName:'productsByOffers',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas reciente',arrayName:'productsByDate',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Lo mas destacado',arrayName:'productsByRating',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
 export default function Products(){
-    const query = useQuery('products',ProductsLogic.getAllProducts)
-    const products = query.data
+    const query1 = useQuery('productsByDate',ProductsLogic.getProductsByRecentDate)
+    const query2 = useQuery('productsByOffer',ProductsLogic.getProductsByOffers)
+    const query3 = useQuery('productsByRating',ProductsLogic.getProductsByRating)
+    const productsByDate = query1.data
+    const productsByOffers = query2.data
+    const productsByRating = query3.data
     const [sections,setSections] = useState(homeSections)
 
     const handleArrowsButton = (position:'left'|'right',type:string) =>{ 
