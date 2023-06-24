@@ -5,6 +5,7 @@ import Filters from './components/filters'
 import Header from '../../../shared/views/components/header'
 import Products from './components/products'
 import Layout from '@/shared/views/components/layout'
+import Categories from './components/categories'
 
 config.autoAddCss = false
 
@@ -12,6 +13,7 @@ config.autoAddCss = false
 export default function Home() {
   return (
     <Layout  hasCarrousel={true} >
+      <Categories />
       <Products />
     </Layout>
   )

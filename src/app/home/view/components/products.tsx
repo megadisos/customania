@@ -13,7 +13,7 @@ import {
   } from 'react-query'
 
 
-const  homeSections = [{title:'Offers',arrayName:'productsByOffers',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Recent',arrayName:'productsByDate',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'outstanding',arrayName:'productsByRating',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
+const  homeSections = [{title:'Offers',arrayName:'productsByOffers',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'outstanding',arrayName:'productsByRating',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}},{title:'Recent',arrayName:'productsByDate',productLimit:{minor:0,mayor:4},arrows:{left:false,right:true}}]
 export default function Products(){
     const query1 = useQuery('productsByDate',ProductsLogic.getProductsByRecentDate)
     const query2 = useQuery('productsByOffer',ProductsLogic.getProductsByOffers)

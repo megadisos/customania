@@ -15,7 +15,7 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
    {hasCarrousel && <Carrousel />} 
     </div>
     <div className='flex  justify-center'>
-    <div className='flex flex-row h-fit  mt-14  w-3/4 '>
+    <div className='flex flex-col h-fit  mt-14  w-3/4 '>
         {children}
     </div>
     </div>

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface TitleHeaderProps {
     title:string,
-    icon:IconDefinition
+    icon?:IconDefinition
 }
 export default function TitleHeader({title,icon}:TitleHeaderProps){
 const lineBackground ='border-gradient-to-l from-red-900 via-amber-400  to-cyan-900'
