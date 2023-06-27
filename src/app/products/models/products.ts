@@ -1,5 +1,5 @@
 type ProductType = 't-shirts' | 'Mugs' | 'Caps' | 'Hoddies' | 'collectibles'
-type SizeType = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl'
+export type SizeType = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl'
 export type SectionType = 'Offers' | 'Recent' | 'outstanding'
 export type RatingType = '1' |'2'|'3'|'4'|'5'
 
@@ -19,6 +19,10 @@ export interface Product {
 }
 
 
+export interface ProductsFromCard extends Product{
+    getterSize: SizeType | null,
+    cartQuantity: number
+}
 
 interface Sizes {
     size:SizeType,
