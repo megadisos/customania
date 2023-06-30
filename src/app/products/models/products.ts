@@ -28,4 +28,5 @@ interface Sizes {
     size:SizeType,
     amount:number,
     available:number,
+    price: number
 }

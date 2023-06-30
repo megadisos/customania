@@ -9,14 +9,13 @@ export const SaveProductInCartNoAuthenticated = (product:ProductsFromCard) =>{
     if (currentLSCart === null) return localStorage.setItem('cm-cart',SharedLogic.convertObjectsArrayToString([product]))
     if (currentLSCart !== null){
         cartProducts = SharedLogic.convertStringToObjectsArray(currentLSCart)
-        const updatesProducts = CartLogic.updateProductsFromCard(cartProducts,product)
+        const updatesProducts = (CartLogic.updateProductsFromCard(cartProducts,product)) as ProductsFromCard[]
         localStorage.setItem('cm-cart',SharedLogic.convertObjectsArrayToString(updatesProducts))
     }
 }
 
 
 export const AddToCart = (product:Product,getterSize:SizeType|null,cartQuantity:number) =>{
-    console.log('entre')
     const productCart = ProductsLogic.convertProductToProductFromCart(product,getterSize,cartQuantity)
     SaveProductInCartNoAuthenticated(productCart)
 }
