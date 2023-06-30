@@ -23,3 +23,22 @@ export const getProductDiscount = (price:number,offer:number|null):number =>{
 export const convertProductToProductFromCart = (product:Product,getterSize:SizeType|null,cartQuantity:number):ProductsFromCard=>{
     return {...product,getterSize,cartQuantity}
 }
+
+
+/**
+ * Returns the Product price
+ * @param product ProductsFromCard object
+ * @returns {number} returns the value
+ */
+
+export const getProductPriceByDiscountByNot= (product:ProductsFromCard):number=>{
+    // If does not have sizes 
+    if(product.sizes === null){
+        if(product.offer === null) return product.price
+        return getProductDiscount(product.price,product.offer)
+    }
+    //If have sizes
+    const sizeIndex = product.sizes.findIndex(prod=>prod.size === product.getterSize)
+    if(product.offer === null) return product.sizes[sizeIndex].price
+    return getProductDiscount(product.sizes[sizeIndex].price,product.offer)
+}

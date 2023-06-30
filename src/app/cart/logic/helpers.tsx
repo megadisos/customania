@@ -10,3 +10,7 @@ export const updateProductsFromCard = (products:ProductsFromCard[],newProduct:Pr
     }
 }
 
+
+export const getProductTotals =(price:number,quantity:number)=>{
+    return price * quantity
+}

@@ -1,5 +1,5 @@
 import { getAllProducts, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
-import { convertProductToProductFromCart, getProductDiscount } from "./helpers";
+import { convertProductToProductFromCart, getProductDiscount, getProductPriceByDiscountByNot } from "./helpers";
 
 export const ProductsLogic = {
     getAllProducts,
@@ -7,5 +7,6 @@ export const ProductsLogic = {
     getProductsByOffers,
     getProductsByRating,
     getProductDiscount,
-    convertProductToProductFromCart
+    convertProductToProductFromCart,
+    getProductPriceByDiscountByNot
 }

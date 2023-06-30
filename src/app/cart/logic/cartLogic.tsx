@@ -1,8 +1,12 @@
-import { updateProductsFromCard } from "./helpers";
+import { GetProductsFromCartNotAuthenticated, GetProductsFromCartNotAuthenticatedTotals } from "./getFromCart";
+import { getProductTotals, updateProductsFromCard } from "./helpers";
 import { AddToCart} from "./saveInCart";
 
 
 export const CartLogic = {
     updateProductsFromCard,
-    AddToCart
+    AddToCart,
+    getProductTotals,
+    GetProductsFromCartNotAuthenticated,
+    GetProductsFromCartNotAuthenticatedTotals
 }
