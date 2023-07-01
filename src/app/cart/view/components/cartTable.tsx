@@ -3,6 +3,8 @@ import { ProductsLogic } from "@/app/products/logic/productsLogic"
 import { ProductsFromCard } from "@/app/products/models/products"
 import Layout from "@/shared/views/components/layout"
 import TitleHeader from "@/shared/views/components/titleHeader"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 import { CartLogic } from "../../logic/cartLogic"
 
@@ -15,9 +17,15 @@ export default function CartTable() {
       setProducts(CartLogic.GetProductsFromCartNotAuthenticated())
   },[])
 
- 
+
   const [products,setProducts] =  useState<ProductsFromCard[] | null>(null)
   const productsTotal = CartLogic.GetProductsFromCartNotAuthenticatedTotals()
+
+const handleDelete = (index:number) =>{
+  CartLogic.DeleteProductsFromCartNotAuthenticated(index)
+  setProducts(CartLogic.GetProductsFromCartNotAuthenticated())
+}
+console.log('prrrr',products)
   return (
     <div className="w-full bg-white">
     <table className="table-fixed w-full">
@@ -29,32 +37,40 @@ export default function CartTable() {
         <th>Talla</th>
         <th>Cantidad</th>
         <th>Total</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
+      {products?.length === 0 && 
+      <tr className="text-center">
+        <td colSpan={7} >No tienes productos en el carrito!</td>
+      </tr>
+      }
       {products !== null && products && products.map((product,index)=>{
         const price = ProductsLogic.getProductPriceByDiscountByNot(product)
         const total = CartLogic.getProductTotals(price,product.cartQuantity)
        
         return (
-          <tr className="text-center">
+          <tr className="text-center" key={product.id}>
             <td>{index + 1}</td>
             <td>{product.name}</td>
             <td>$ {price}</td>
             <td>{product.getterSize}</td>
             <td>{product.cartQuantity}</td>
             <td>$ {total}</td>
+            <td><div className="cursor-pointer" onClick={()=>handleDelete(index)}><FontAwesomeIcon icon={faTrash} color={'#CD1818'} title='Eliminar'/></div></td>
           </tr>
         )
       })}
-      <tr className="text-center">
+      {products && products?.length >0 && <tr className="text-center">
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td className="font-bold">Total:</td>
         <td>$ {productsTotal}</td>
-      </tr>
+       
+      </tr>}
     </tbody>
   </table>
   </div>
