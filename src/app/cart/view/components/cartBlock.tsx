@@ -8,8 +8,7 @@ interface CartBlockProps {
 export default function CartBlock() {
   return (
    <div className="flex flex-col w-full h-screen  p-2">
-    <div className="mb-5 flex flex-row justify-center"><TitleHeader title="Cart" /></div>
-    <hr className="border-1 border-slate-200 mb-4"></hr>
+    <div className="mb-5 flex flex-row justify-center"><TitleHeader title="Carrito de compras" /></div>
    <CartTable />
    </div>
   )
