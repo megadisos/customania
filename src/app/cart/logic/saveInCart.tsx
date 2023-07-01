@@ -15,7 +15,8 @@ export const SaveProductInCartNoAuthenticated = (product:ProductsFromCard) =>{
 }
 
 
-export const AddToCart = (product:Product,getterSize:SizeType|null,cartQuantity:number) =>{
+export const AddToCart = (product:Product,getterSize:SizeType|null,cartQuantity:number):number =>{
     const productCart = ProductsLogic.convertProductToProductFromCart(product,getterSize,cartQuantity)
     SaveProductInCartNoAuthenticated(productCart)
+    return CartLogic.getProductsFromCartCount()
 }

@@ -1,10 +1,11 @@
 import { CartLogic } from "@/app/cart/logic/cartLogic"
+import { CartContext } from "@/app/cart/view/contexts/cartContext"
 import Button from "@/shared/views/components/button"
 import { faStar } from "@fortawesome/free-regular-svg-icons"
 
 import { faStar as solidStar} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ProductsLogic } from "../../logic/productsLogic"
 import { Product, RatingType, SectionType, SizeType } from "../../models/products"
 import ItemsCounter from "./itemsCounter"
@@ -30,6 +31,7 @@ export default function ProductCard({product,section}:ProductCardProps) {
     const [currentPrice,setCurrentPrice] = useState(product.price)
     const [currentAvailable,setCurrentAvailable] = useState<number>(1)
     const [ammountToCart,setAmmountToCart] =  useState<number>(1)
+    const  {setTotalInCart} = useContext(CartContext)
     useEffect(()=>{
         if(product.sizes !== null){
             const sizeIndex = product.sizes.findIndex(size=>size.size === currentSize)
@@ -41,6 +43,7 @@ export default function ProductCard({product,section}:ProductCardProps) {
        
     },[currentSize])
 
+   
   return (
    <div className="relative flex flex-col gap-1 w-3/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
    {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-2 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
@@ -67,7 +70,7 @@ export default function ProductCard({product,section}:ProductCardProps) {
                     })}
            </select></>}</p>       
     <div className="flex flex-row"><p className=" w-2/4" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating)}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable}/></span></div>
-    <Button name="Agregar al carrito" position="right" size="full" type="normal" onClick={()=>CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart)}/>
+    <Button name="Agregar al carrito" position="right" size="full" type="normal" onClick={()=>setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))}/>
     <Button name="Comprar" position="right" size="full" type="success"/>
    </div> 
   )

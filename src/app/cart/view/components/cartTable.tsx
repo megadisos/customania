@@ -5,27 +5,25 @@ import Layout from "@/shared/views/components/layout"
 import TitleHeader from "@/shared/views/components/titleHeader"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { CartLogic } from "../../logic/cartLogic"
+import { CartContext } from "../contexts/cartContext"
 
 interface CartTableProps {
 
 }
 
 export default function CartTable() {
-  useEffect(()=>{
-      setProducts(CartLogic.GetProductsFromCartNotAuthenticated())
-  },[])
 
-
-  const [products,setProducts] =  useState<ProductsFromCard[] | null>(null)
+const  {products,setProducts,setTotalInCart} = useContext(CartContext)
+ 
   const productsTotal = CartLogic.GetProductsFromCartNotAuthenticatedTotals()
 
 const handleDelete = (index:number) =>{
   CartLogic.DeleteProductsFromCartNotAuthenticated(index)
   setProducts(CartLogic.GetProductsFromCartNotAuthenticated())
+  setTotalInCart(CartLogic.getProductsFromCartCount())
 }
-console.log('prrrr',products)
   return (
     <div className="w-full bg-white">
     <table className="table-fixed w-full">

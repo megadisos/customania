@@ -1,3 +1,4 @@
+import { CartProvider } from '@/app/cart/view/contexts/cartContext'
 import Header from '@/shared/views/components/header'
 import Image from 'next/image'
 import React from 'react'
@@ -9,6 +10,7 @@ interface LayoutProps {
 export default function Layout({children,hasCarrousel}:LayoutProps) {
   return (
     <main className="flex  h-fit flex-col  gap-1 bg-cover bg-center" style={{backgroundImage: 'url("/images/background.jpg")'}}>
+    <CartProvider>
     <div className='h-fit flex flex-col rounded shadow-slate-800'>
     <div className='flex flex-col mb-5' >
     <Header />
@@ -20,6 +22,7 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
     </div>
     </div>
     </div>
+    </CartProvider>
   </main>
   )
 }

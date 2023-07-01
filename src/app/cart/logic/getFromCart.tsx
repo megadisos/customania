@@ -15,8 +15,8 @@ export const GetProductsFromCartNotAuthenticated = ():ProductsFromCard[] | null 
 
 
 /**
- * Obtener el total de los productos en el carrito
- * @returns {number} returns the total
+ * Obtener el valor total de los productos en el carrito
+ * @returns {number} returns the total value
  */
 export const GetProductsFromCartNotAuthenticatedTotals = ():number =>{
     const products = localStorage.getItem('cm-cart')
@@ -31,4 +31,17 @@ export const GetProductsFromCartNotAuthenticatedTotals = ():number =>{
         return total
     } 
     return 0   
+}
+
+/**
+ * Obtener el total de los productos en el carrito
+ * @returns {number} returns the total
+ */
+export const getProductsFromCartCount = ():number =>{
+    const products = localStorage.getItem('cm-cart')
+    if(products !== null){
+        const convertedProducts = SharedLogic.convertStringToObjectsArray(products)
+        return convertedProducts.length
+    }
+    return 0
 }
