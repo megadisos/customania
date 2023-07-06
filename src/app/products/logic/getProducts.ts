@@ -45,3 +45,4 @@ export const getProductsByRating = async():Promise<Product[]>=>{
         return rating2 - rating1
     })
 }
+

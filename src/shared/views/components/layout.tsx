@@ -1,8 +1,14 @@
+'use client'
 import { CartProvider } from '@/app/cart/view/contexts/cartContext'
 import Header from '@/shared/views/components/header'
-import Image from 'next/image'
 import React from 'react'
 import Carrousel from './carrousel'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+const queryClient = new QueryClient()
+
 interface LayoutProps {
     children?:React.ReactNode
     hasCarrousel?:boolean
@@ -18,7 +24,9 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
     </div>
     <div className='flex  justify-center'>
     <div className='flex flex-col h-fit  mt-14  w-3/4 '>
+    <QueryClientProvider client={queryClient}>
         {children}
+        </QueryClientProvider>
     </div>
     </div>
     </div>

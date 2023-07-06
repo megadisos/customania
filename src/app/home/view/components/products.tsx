@@ -4,7 +4,6 @@ import { Product, SectionType } from "@/app/products/models/products";
 import ProductCard from "@/app/products/view/components/productCard";
 import { ICONSTYLES } from "@/shared/views/components/carrousel";
 import TitleHeader from "@/shared/views/components/titleHeader";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faArrowLeft, faArrowRight, faGifts, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
