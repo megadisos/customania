@@ -34,7 +34,8 @@ export default function CategoryView({category}:CategoryProps) {
     )
     })}
     </div>
-    {products && <Pagination elementsByPage={PORDUCT_BY_PAGE} elementsTotal={products?.length} handlePagination={handlePagination}/>} 
+    {products && products.filter(pr=>pr.type === category).length >0 && <Pagination elementsByPage={PORDUCT_BY_PAGE} elementsTotal={products?.length} handlePagination={handlePagination}/>} 
     </>
   )
 }
+ 
