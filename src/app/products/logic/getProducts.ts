@@ -1,4 +1,4 @@
-import { getAllDataProducts } from "../data/getProducts";
+import { getAllDataProducts, getProductById } from "../data/getProducts";
 import { Product } from "../models/products";
 
 
@@ -46,3 +46,11 @@ export const getProductsByRating = async():Promise<Product[]>=>{
     })
 }
 
+
+/**
+ * Obtiene un producto.
+ * @returns {Product} Devuelve un producto
+ */
+export const getProduct = (productId:string):Promise<Product> =>{
+    return getProductById(productId)
+}

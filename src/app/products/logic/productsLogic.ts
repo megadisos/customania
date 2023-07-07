@@ -1,4 +1,4 @@
-import { getAllProducts, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
+import { getAllProducts, getProduct, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
 import { convertProductToProductFromCart, getProductDiscount, getProductPriceByDiscountByNot } from "./helpers";
 
 export const ProductsLogic = {
@@ -8,5 +8,6 @@ export const ProductsLogic = {
     getProductsByRating,
     getProductDiscount,
     convertProductToProductFromCart,
-    getProductPriceByDiscountByNot
+    getProductPriceByDiscountByNot,
+    getProduct
 }

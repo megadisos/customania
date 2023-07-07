@@ -11,3 +11,9 @@ export const getAllDataProducts=async ():Promise<Product[]>=>{
     const response:AxiosResponse<Product[]> = await axios.get(path)
     return response.data
 }
+
+export const getProductById=async (productId:string):Promise<Product>=>{
+    const path = BASE_API  + API+ PRODUCTS + `/${productId}`
+    const response:AxiosResponse<Product> = await axios.get(path)
+    return response.data
+}
