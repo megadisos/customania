@@ -30,7 +30,7 @@ export default function CategoryView({category}:CategoryProps) {
     <div className="flex flex-row gap-10 flex-wrap mt-5">
         {products && products.filter(pr=>pr.type === category).filter((pr,index)=>index >= limits.minor  && index<=limits.mayor).map((product,index)=>{
         return(  
-        <ProductCard product={product}/>
+        <ProductCard product={product} size={'little'}/>
     )
     })}
     </div>
