@@ -12,15 +12,16 @@ import ProductCard from "./productCard"
 interface CategoryProps {
     category:string
 }
-
+const PORDUCT_BY_PAGE =  8
 export default function CategoryView({category}:CategoryProps) {
     const query = useQuery('AllProducts',ProductsLogic.getAllProducts)
     const products = query.data
-    const [limits,setLimits] = useState({minor:0,mayor:7})
+    const elementsNumber = PORDUCT_BY_PAGE -1
+    const [limits,setLimits] = useState({minor:0,mayor:elementsNumber})
 
-    const handlePagination = (page:number) =>{
-        const newMayor = (limits.mayor * page) + 1
-        const newMenor = newMayor - limits.mayor
+    const handlePagination = (page:number) =>{ 
+        const newMayor = (elementsNumber * page) + 1
+        const newMenor = newMayor - elementsNumber
         setLimits({minor:newMenor,mayor:newMayor})
     }
   return (
@@ -33,7 +34,7 @@ export default function CategoryView({category}:CategoryProps) {
     )
     })}
     </div>
-    {products && <Pagination elementsByPage={8} elementsTotal={products?.length} handlePagination={handlePagination}/>} 
+    {products && <Pagination elementsByPage={PORDUCT_BY_PAGE} elementsTotal={products?.length} handlePagination={handlePagination}/>} 
     </>
   )
 }
