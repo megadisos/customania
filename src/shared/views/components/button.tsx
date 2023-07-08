@@ -13,10 +13,11 @@ interface ButtonProps {
     type:'normal' | 'success'
     disabled?: boolean,
     height?:'fit' | 'big' 
+    padding?:boolean 
 }
 type sizeType = 'full' | '25%' | '50%' | '75%' 
 type buttonType = 'normal' | 'success'
-export default function Button({name,onClick,size,position,type,disabled,height}:ButtonProps){
+export default function Button({name,onClick,size,position,type,disabled,height,padding}:ButtonProps){
 
     const generateSize = (size:sizeType)=>{
         switch(size){
@@ -38,9 +39,10 @@ export default function Button({name,onClick,size,position,type,disabled,height}
                 return 'bg-green-800'
         }
     }
+    const btPadding =   padding ?"p-1":''
     const finalPosition = position === 'right'?'float-right':position === 'center'?'float-center':'float-left'
     const finalHeight =  height ? height === 'fit'?'h-fit':'h-10':'h-fit'
-    const baseStyles = `rounded w-full ${generateColor(type)} ${generateSize(size)} ${finalHeight} ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
+    const baseStyles = `rounded w-full  ${btPadding} ${generateColor(type)} ${generateSize(size)} ${finalHeight} ${finalPosition} text-slate-50  animate-jump-in hover:animate-jump hover:bg-red-900`
     return (
         <button onClick={onClick} className={baseStyles} disabled={disabled?disabled:false}>{name}</button>
         )

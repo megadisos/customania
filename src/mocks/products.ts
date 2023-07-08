@@ -14,13 +14,13 @@ export const products:Product[] = [
     sizes:[{size:'s',amount:2,available:2,price:22000},{size:'m',amount:2,available:2,price:25000}]},
     {id:6,name:'Camiseta 6',description:'Camiseta estampada en tecnica',amount:10,available:10,created:'2023-04-07',offer:null,type:'t-shirts',price:25000,imagepath:IMAGEPATH+'/shirts/tshirt_6.jpg',rating:'3',
     sizes:[{size:'s',amount:2,available:2,price:22000},{size:'m',amount:2,available:2,price:25000}]},
-    {id:7,name:'Mug 1',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-12',type:'t-shirts',offer:10,price:25000,imagepath:IMAGEPATH+'/mugs/mug_1.jpg',rating:'3',
+    {id:7,name:'Mug 1',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-12',type:'Mugs',offer:10,price:25000,imagepath:IMAGEPATH+'/mugs/mug_1.jpg',rating:'3',
     sizes:null},
-    {id:8,name:'Mug 2',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-11',type:'t-shirts',offer:null,price:25000,imagepath:IMAGEPATH+'/mugs/mug_2.jpg',rating:'4',
+    {id:8,name:'Mug 2',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-11',type:'Mugs',offer:null,price:25000,imagepath:IMAGEPATH+'/mugs/mug_2.jpg',rating:'4',
     sizes:null},
-    {id:9,name:'Mug 3',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-10',type:'t-shirts',offer:10,price:25000,imagepath:IMAGEPATH+'/mugs/mug_3.jpg',rating:'3',
+    {id:9,name:'Mug 3',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-10',type:'Mugs',offer:10,price:25000,imagepath:IMAGEPATH+'/mugs/mug_3.jpg',rating:'3',
     sizes:null},
-    {id:10,name:'Mug 4',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-9',type:'t-shirts',offer:null,price:25000,imagepath:IMAGEPATH+'/mugs/mug_4.jpg',rating:'3',
+    {id:10,name:'Mug 4',description:'Mug estampada en tecnica',amount:10,available:10,created:'2023-04-9',type:'Mugs',offer:null,price:25000,imagepath:IMAGEPATH+'/mugs/mug_4.jpg',rating:'3',
     sizes:null},
     ];
 

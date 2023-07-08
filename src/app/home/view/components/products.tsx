@@ -39,13 +39,13 @@ export default function Products(){
     }
 
     return (
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full ">
             {sections.map(section=>{
                 return (
                     <div className="relative flex flex-col h-full mb-5  w-full p-4">
          
                     <TitleHeader title={section.title} icon={faGifts}/>
-                    <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-4 mb-10">
+                    <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-4 mb-10 ">
                         {eval(section.arrayName) && eval(section.arrayName).filter((pr:Product,index:number)=>index<=9).filter((pr: Product,index: number)=>index>=section.productLimit.minor && index<=section.productLimit.mayor).map((product: Product)=>{
                             return  <ProductCard product={product} section={(section.title as SectionType)} size={'little'}/>
                         })}

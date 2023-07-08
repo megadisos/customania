@@ -15,11 +15,11 @@ export default function ProductView({productId}:ProductViewProps) {
   const query = useQuery('productById',()=>ProductsLogic.getProduct(productId))
   if(query.isFetching) return <p>Cargando ...</p>
   const product = query.data
-
+const isOffer = product?.offer !== null ? true:false 
 
   return (
     <div className='flex flex-col items-center'>
-<ProductCard product={product as Product} />
+<ProductCard product={product as Product} section={isOffer?'Offers':undefined}/>
 </div>
 
 )

@@ -2,7 +2,9 @@
 
 import { CartLogic } from "@/app/cart/logic/cartLogic"
 import { CartContext } from "@/app/cart/view/contexts/cartContext"
+import { SharedLogic } from "@/shared/logic/sharedLogic"
 import Button from "@/shared/views/components/button"
+import Modal from "@/shared/views/components/modal"
 import { faStar } from "@fortawesome/free-regular-svg-icons"
 import { faStar as solidStar} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -36,7 +38,6 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
     const [currentAvailable,setCurrentAvailable] = useState<number>(1)
     const [ammountToCart,setAmmountToCart] =  useState<number>(1)
     const  {setTotalInCart} = useContext(CartContext)
-
     useEffect(()=>{
         if(product.sizes !== null){
             const sizeIndex = product.sizes.findIndex(size=>size.size === currentSize)
@@ -50,7 +51,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
 
    const urlName = product.name.split(' ').join('-').toLowerCase()
   if(size && size === 'little')  return (
-   
+    <>
     <div className="relative flex flex-col gap-1 w-3/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
      <Link href={{pathname:`/products/${product.type}/${urlName}`,query:{productId:product.id}}}>
     {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-2 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
@@ -76,13 +77,16 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
                              <option>{size.size}</option>
                          )
                      })}
-            </select></>}</p>     
+            </select></>}</p>  
+            </Link>   
      <div className="flex flex-row"><p className=" w-2/4" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating,'#7F1D1D')}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable}/></span></div>
-     </Link>
-     <Button name="Agregar al carrito" position="right" size="full" type="normal" onClick={()=>setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))}/>
+     <Button name="Agregar al carrito" position="right" size="full" type="normal" onClick={()=>{
+        setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
+        SharedLogic.showCartModal(product)
+    }}/>
      <Button name="Comprar" position="right" size="full" type="success"/>
     </div> 
-   
+    </>
    )
 
    return (
@@ -92,14 +96,17 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
   <h1 className='text-white self-center mt-4 mb-5 text-5xl bg-black bg-opacity-50 font-bold'>{product.name}</h1>
   <div className='flex flex-row mt-5'>
     {/* imagen */}
-    <div className='flex flex-col items-center w-2/4'>
+    <div className='relative flex flex-col items-center w-2/4'>
+    {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-20 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
+         <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
+     </div>} 
     <img src={product.imagepath} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
     </div>
     {/* detalles */}
     <div className='relative flex flex-col w-2/4 gap-2 bg-black bg-opacity-40 p-5'>
     <h1 className='text-white self-center mt-4 mb-2 text-3xl font-bold'>Descripcion</h1>
     <p className='text-white self-center  mb-2 text-xl'>{product.description}</p>
-    <p className="text-white text-3xl mb-2">{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span >${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span >${currentPrice}</span> } </p>
+    <p className="text-white text-3xl mb-2 mt-5">{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span >${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span >${currentPrice}</span> } </p>
      <p className="text-xl mb-5 mt-5">{product.sizes !== null && <><span className="font-bold text-white">Size:</span> <select onChange={(e)=>{setCurrentSize((e.target.value as SizeType)); setAmmountToCart(1)}} value={currentSize}>
                      {product.sizes.filter(size=>size.available > 0).map(size=>{
                          return (
@@ -108,8 +115,11 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
                      })}
             </select></>}</p>     
      <div className="flex flex-row mt-5 "><p className=" w-2/4" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating,'#E5A223')}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable} color='white'/></span></div>
-     <div className="flex flex-col absolute bottom-16  w-full items-center gap-2">
-     <Button name="Agregar al carrito" position="right" size="50%" type="normal" height="big" onClick={()=>setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))}/>
+     <div className="flex flex-col absolute bottom-12  w-full items-center gap-2">
+     <Button name="Agregar al carrito" position="right" size="50%" type="normal" height="big" onClick={()=>{
+        setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
+        SharedLogic.showCartModal(product)
+     }}/>
      <Button name="Comprar" position="right" size="50%" type="success" height="big"/>
      </div>
     </div> 
