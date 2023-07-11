@@ -1,4 +1,5 @@
-import { processPayment } from "../data/payment";
+import { generatePreferenceId, processPayment } from "../data/payment";
+import { Prefrence } from "../models/brick";
 /**
  * Perform process Payment
  * @param selectedPaymentMethod
@@ -20,3 +21,7 @@ export const onError = async (error:any) => console.log(error);
  export const onReady = async () => {};
 
 
+
+ export const generateNewPreferenceId =(preference:Prefrence)=>{
+    return generatePreferenceId(preference)
+ }

@@ -13,3 +13,17 @@ export interface paymentMethods {
 export interface BrickCustomization  {
     paymentMethods: paymentMethods
 };
+
+
+export interface Prefrence {
+    purpose:string,
+    items: Items[]
+}
+
+
+interface Items {
+    id: string,
+    title: string,
+    quantity: number,
+    unit_price: number
+}
