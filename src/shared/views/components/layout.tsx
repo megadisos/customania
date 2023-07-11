@@ -11,6 +11,9 @@ import Modal from './modal'
 import { useCustomEventListener } from 'react-custom-events'
 import { Product } from '@/app/products/models/products'
 import AddedToCart from '@/app/cart/view/components/addedToCart'
+import { MPLogic } from '@/mercado-pago/logic/mercadoPagoLogic'
+
+
 const queryClient = new QueryClient()
 
 interface LayoutProps {
@@ -25,9 +28,13 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
     setCartProduct(product)
   });
 
+
   useCustomEventListener('Close-cart-modal', () => {
     setIsCartModalOpen(false)
   });
+
+  MPLogic.initMpAuthentication()
+
   return (
     <main className="flex  h-fit flex-col  z-0 gap-1 bg-cover bg-center" style={{backgroundImage: 'url("/images/background.jpg")'}}>
    {isCartModalOpen && <Modal isOpen={isCartModalOpen} setIsOpen={setIsCartModalOpen}><AddedToCart product={cartProduct as Product}/></Modal>}
