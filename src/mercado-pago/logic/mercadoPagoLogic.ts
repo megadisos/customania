@@ -1,10 +1,12 @@
-import { generateNewPreferenceId, onError, onReady, onSubmitBrick } from "./brickFunction";
-import { initMpAuthentication } from "./initialization";
+import { generateNewPreferenceId, onError, onReady, onSubmit } from "./brickFunction";
+import { getCustomizationObject, getInitializationObject, initMpAuthentication } from "./initialization";
 
 export const MPLogic = {
     initMpAuthentication,
-    onSubmitBrick,
+    onSubmit,
     onError,
     onReady,
-    generateNewPreferenceId
+    generateNewPreferenceId,
+    getInitializationObject,
+    getCustomizationObject
 }

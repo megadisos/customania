@@ -3,6 +3,7 @@
  * @returns {number} Devuelve el valor del producto con descuento.
  */
 
+import { ReadonlyURLSearchParams } from "next/navigation"
 import { Product, ProductsFromCard, SizeType } from "../models/products"
 
 export const getProductDiscount = (price:number,offer:number|null):number =>{
@@ -42,3 +43,8 @@ export const getProductPriceByDiscountByNot= (product:ProductsFromCard):number=>
     if(product.offer === null) return product.sizes[sizeIndex].price
     return getProductDiscount(product.sizes[sizeIndex].price,product.offer)
 }
+
+
+
+
+

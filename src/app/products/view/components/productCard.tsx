@@ -71,6 +71,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
      
      <p className="font-bold">{product.name}</p>
      <p>{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span>${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span>${currentPrice}</span> } </p>
+     </Link>  
      <p>{product.sizes !== null && <><span className="font-bold">Size:</span> <select onChange={(e)=>{setCurrentSize((e.target.value as SizeType)); setAmmountToCart(1)}} value={currentSize}>
                      {product.sizes.filter(size=>size.available > 0).map(size=>{
                          return (
@@ -78,13 +79,13 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
                          )
                      })}
             </select></>}</p>  
-            </Link>   
+             
      <div className="flex flex-row"><p className=" w-2/4" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating,'#7F1D1D')}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable}/></span></div>
      <Button name="Agregar al carrito" position="right" size="full" type="normal" onClick={()=>{
         setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
         SharedLogic.showCartModal(product)
     }}/>
-     <Button name="Comprar" position="right" size="full" type="success"/>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product.id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="full" type="success"/></Link>
     </div> 
     </>
    )
@@ -120,7 +121,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
         setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
         SharedLogic.showCartModal(product)
      }}/>
-     <Button name="Comprar" position="right" size="50%" type="success" height="big"/>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product.id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="50%" type="success" height="big"/></Link>
      </div>
     </div> 
   </div>

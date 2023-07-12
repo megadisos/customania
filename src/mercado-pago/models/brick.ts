@@ -21,7 +21,7 @@ export interface Prefrence {
 }
 
 
-interface Items {
+export interface Items {
     id: string,
     title: string,
     quantity: number,
