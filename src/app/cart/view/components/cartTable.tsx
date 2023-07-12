@@ -76,7 +76,7 @@ const tdStyles = 'border-r border-black'
     </tbody>
   </table>
   </div>
-  {products && products?.length >0 && <div className="w-full mt-10"><Button name={"Pagar"} size={"25%"} position={"right"} type={"success"} height={'big'} ></Button></div>}
+  {products && products?.length >0 && <Link href={{pathname:`/products/all/cart/payments`,query:{ammount:productsTotal}}}><div className="w-full mt-10"><Button name={"Pagar"} size={"25%"} position={"right"} type={"success"} height={'big'} ></Button></div></Link>}
   {products?.length === 0 && 
      <div className="w-full mt-10"><Link href='/'><Button name={"Seguir comprando"} size={"25%"} position={"right"} type={"normal"}  height={'big'} ></Button></Link></div>
       }

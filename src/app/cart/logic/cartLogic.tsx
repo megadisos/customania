@@ -1,6 +1,6 @@
 import { DeleteProductsFromCartNotAuthenticated } from "./deleteFromCart";
 import { getProductsFromCartCount, GetProductsFromCartNotAuthenticated, GetProductsFromCartNotAuthenticatedTotals } from "./getFromCart";
-import { getProductTotals, updateProductsFromCard } from "./helpers";
+import { convertCartItemsToMPItems, getProductTotals, updateProductsFromCard } from "./helpers";
 import { AddToCart} from "./saveInCart";
 
 
@@ -11,5 +11,6 @@ export const CartLogic = {
     GetProductsFromCartNotAuthenticated,
     GetProductsFromCartNotAuthenticatedTotals,
     DeleteProductsFromCartNotAuthenticated,
-    getProductsFromCartCount
+    getProductsFromCartCount,
+    convertCartItemsToMPItems
 }
