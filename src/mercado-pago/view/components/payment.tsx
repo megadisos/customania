@@ -5,14 +5,15 @@ import { IPaymentBrickCustomization } from "@mercadopago/sdk-react/bricks/paymen
 
 interface PaymentProps {
     initialization:BrickInitialization,
-    customization:IPaymentBrickCustomization
+    customization:IPaymentBrickCustomization,
+    onSubmit: ({ selectedPaymentMethod, formData }: any) => Promise<any>
 }
-export default function Payments({initialization,customization}:PaymentProps) {
+export default function Payments({initialization,customization,onSubmit}:PaymentProps) {
   return (
     <Payment
     initialization={initialization}
     customization={customization}
-    onSubmit={MPLogic.onSubmit}
+    onSubmit={onSubmit}
     onReady={MPLogic.onReady}
     onError={MPLogic.onError}
  />

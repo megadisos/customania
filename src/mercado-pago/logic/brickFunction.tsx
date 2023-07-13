@@ -1,3 +1,4 @@
+import { SharedLogic } from "@/shared/logic/sharedLogic";
 import { generatePreferenceId, processPayment } from "../data/payment";
 import { Prefrence } from "../models/brick";
 /**
@@ -6,24 +7,20 @@ import { Prefrence } from "../models/brick";
  * @param formData
  */
 export const onSubmit = async ({ selectedPaymentMethod, formData }:any) => {
-  return new Promise<void>((resolve, reject) => {
-    fetch("/process_payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        // recibir el resultado del pago
-        resolve();
-      })
-      .catch((error) => {
-        // manejar la respuesta de error al intentar crear el pago
-        reject();
-      });
-  });
+  try {
+    if(formData.payment_method_id  === 'pse'){
+      formData['description'] = 'pago con pse'
+      formData['additional_info'] ={}
+      formData['additional_info']['ip_address'] = '181.136.134.132'
+      formData['callback_url'] = 'https://ce26-2800-e2-5b00-f0f-7e7d-18be-e788-7c52.ngrok-free.app'
+    }
+  
+    const response = await processPayment(formData)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+
 }
 
 
