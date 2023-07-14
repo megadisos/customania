@@ -6,7 +6,11 @@ import { Items } from "@/mercado-pago/models/brick"
 import Payments from "@/mercado-pago/view/components/payment"
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from "react"
-import { StatusScreen } from '@mercadopago/sdk-react';
+import { Payment, StatusScreen } from '@mercadopago/sdk-react';
+import TitleHeader from "@/shared/views/components/titleHeader"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowDown, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons"
+import CartTable from "@/app/cart/view/components/cartTable"
 
 
 export default function PaymentView() {
@@ -14,9 +18,8 @@ export default function PaymentView() {
     const pathname = usePathname()
     const comeFromCart = pathname?.split('/')[3] === 'cart'
     const searchParams = useSearchParams()
-    const [paymentStatus,setPaymentStatus] = useState({status:'',status_detail:'',id:0})
-    const [showStatusBrick,setShowStatusBrick] = useState(false)
-    const [bankTransferInit,setBankTransferInit] = useState({paymentId:''})
+    const [showProducts,setShowProducts] = useState(true)
+    const [showAddress,setShowAddress] = useState(false)
     const [initialization,setInitialization] = useState({ 
         amount: 0,
         preferenceId: ''})
@@ -61,9 +64,31 @@ export default function PaymentView() {
    
 
   return (
-   <div className="flex flex-row">
-   
-    <Payments  customization={customization} initialization={initialization} onSubmit={onSubmitPayment}/> 
+    <>
+       <div className="flex flex-col h-fit gap-2 ">
+
+    <div className="flex justify-center">
+    <TitleHeader title="Pagos" />
+    </div>
+
+    <div className="flex flex-row gap-2">
+   <div className="w-5/6 bg-white rounded flex flex-col h-auto mb-5 border border-2 p-2">
+    <div className="w-full h-8 border border-black-2 p-1"><span className="font-bold">Tus productos</span> <FontAwesomeIcon style={{'float':'right','cursor':'pointer'}} onClick={()=>{setShowProducts(!showProducts); setShowAddress(!showAddress)}} icon={showProducts?faChevronUp:faChevronDown} /></div>
+    {showProducts && <div className="w-full h-fit border border-black-2 p-1 mt-2"><CartTable actions={false} payments={true}/></div>}
+    <div className="w-full h-8 border border-black-2 p-1 mt-2"><span className="font-bold">Direccion de envio</span> <FontAwesomeIcon style={{'float':'right','cursor':'pointer'}} onClick={()=>{setShowAddress(!showAddress);setShowProducts(!showProducts)}} icon={showAddress?faChevronUp:faChevronDown} /></div>
+    {showAddress && <div className="w-full h-fit border border-black-2 p-1 mt-2"><p>Dir</p></div>}
    </div>
+   <div className="w-2/6 mb-5">
+   <Payment
+    initialization={initialization}
+    customization={customization}
+    onSubmit={onSubmitPayment}
+    onReady={()=>{}}
+    onError={()=>{}}
+    locale={'es-CO'} />
+   </div>
+   </div>
+   </div>
+   </> 
   )
 }

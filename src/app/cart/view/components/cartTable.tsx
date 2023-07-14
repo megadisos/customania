@@ -12,10 +12,11 @@ import { CartLogic } from "../../logic/cartLogic"
 import { CartContext } from "../contexts/cartContext"
 
 interface CartTableProps {
-
+  actions:boolean,
+  payments:boolean
 }
 
-export default function CartTable() {
+export default function CartTable({actions,payments}:CartTableProps) {
 
 const  {products,setProducts,setTotalInCart} = useContext(CartContext)
  
@@ -27,11 +28,13 @@ const handleDelete = (index:number) =>{
   setTotalInCart(CartLogic.getProductsFromCartCount())
 }
 const tdStyles = 'border-r border-black'
+const headColor = 'bg-gradient-to-tl from-amber-400 to-orange-900'
+const shadows = payments?'':'shadow-md shadow-amber-400'
   return (
     <>
-    <div className="w-full bg-slate-100 bg-opacity-80 shadow-md shadow-amber-400 rounded">
+    <div className={`w-full ${payments?'bg-white':'bg-slate-100 bg-opacity-80'}  ${shadows} rounded`}>
     <table className="table-fixed w-full">
-    <thead className="border-b-2 bg-gradient-to-tl from-amber-400 to-orange-900">
+    <thead className={`border-b-2 ${headColor}`}>
       <tr>
         <th>Id</th>
         <th>Producto</th>
@@ -39,7 +42,7 @@ const tdStyles = 'border-r border-black'
         <th>Talla</th>
         <th>Cantidad</th>
         <th>Total</th>
-        <th>Acciones</th>
+        {actions && <th>Acciones</th>}
       </tr>
     </thead>
     <tbody>
@@ -60,7 +63,7 @@ const tdStyles = 'border-r border-black'
             <td className={tdStyles}>{product.getterSize}</td>
             <td className={tdStyles}>{product.cartQuantity}</td>
             <td className={tdStyles}>$ {total}</td>
-            <td><div className="cursor-pointer" onClick={()=>handleDelete(index)}><FontAwesomeIcon icon={faTrash} color={'#CD1818'} title='Eliminar'/></div></td>
+            {actions && <td><div className="cursor-pointer" onClick={()=>handleDelete(index)}><FontAwesomeIcon icon={faTrash} color={'#CD1818'} title='Eliminar'/></div></td>}
           </tr>
         )
       })}
@@ -69,15 +72,15 @@ const tdStyles = 'border-r border-black'
         <td></td>
         <td></td>
         <td></td>
-        <td className="font-bold  border-l border-r border-black">Total:</td>
-        <td className="border-r border-black font-bold">$ {productsTotal}</td>
+        <td className={`font-bold  ${payments?'':'border-l border-r border-black'} `}>Total:</td>
+        <td className={`${payments?'':'border-r border-black'} font-bold`}>$ {productsTotal}</td>
        
       </tr>}
     </tbody>
   </table>
   </div>
-  {products && products?.length >0 && <Link href={{pathname:`/products/all/cart/payments`,query:{ammount:productsTotal}}}><div className="w-full mt-10"><Button name={"Pagar"} size={"25%"} position={"right"} type={"success"} height={'big'} ></Button></div></Link>}
-  {products?.length === 0 && 
+  {products && products?.length >0 && actions && <Link href={{pathname:`/products/all/cart/payments`,query:{ammount:productsTotal}}}><div className="w-full mt-10"><Button name={"Pagar"} size={"25%"} position={"right"} type={"success"} height={'big'} ></Button></div></Link>}
+  {products?.length === 0 && actions &&
      <div className="w-full mt-10"><Link href='/'><Button name={"Seguir comprando"} size={"25%"} position={"right"} type={"normal"}  height={'big'} ></Button></Link></div>
       }
   </>

@@ -9,7 +9,7 @@ export default function CartBlock() {
   return (
    <div className="flex flex-col w-full h-screen  p-2">
     <div className="mb-5 flex flex-row justify-center"><TitleHeader title="Carrito de compras" /></div>
-   <CartTable />
+   <CartTable actions={true} payments={false}/>
    </div>
   )
 }

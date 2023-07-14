@@ -16,6 +16,7 @@ export default function Payments({initialization,customization,onSubmit}:Payment
     onSubmit={onSubmit}
     onReady={MPLogic.onReady}
     onError={MPLogic.onError}
+    locale={''}
  />
   )
 }
