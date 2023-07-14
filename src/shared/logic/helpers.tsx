@@ -13,3 +13,4 @@ export const getIPAddress = async () =>{
     const clientIp = await getClientApiAddress()
     return clientIp.ip
 }
+

@@ -1,5 +1,6 @@
 import { closeCartModal, showCartModal } from "./events";
 import { convertObjectsArrayToString, convertStringToObjectsArray, getIPAddress } from "./helpers";
+import { getPaymentById } from "./payments";
 
 
 export const SharedLogic = {
@@ -7,5 +8,6 @@ export const SharedLogic = {
     convertStringToObjectsArray,
     showCartModal,
     closeCartModal,
-    getIPAddress
+    getIPAddress,
+    getPaymentById
 }

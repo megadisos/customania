@@ -4,11 +4,13 @@ import { ProductsFromCard } from "@/app/products/models/products"
 import { MPLogic } from "@/mercado-pago/logic/mercadoPagoLogic"
 import { Items } from "@/mercado-pago/models/brick"
 import Payments from "@/mercado-pago/view/components/payment"
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from "react"
 import { StatusScreen } from '@mercadopago/sdk-react';
 
+
 export default function PaymentView() {
+    const router = useRouter();
     const pathname = usePathname()
     const comeFromCart = pathname?.split('/')[3] === 'cart'
     const searchParams = useSearchParams()
@@ -48,10 +50,10 @@ export default function PaymentView() {
     const onSubmitPayment = async ({ selectedPaymentMethod, formData }:any) =>{
        console.log(selectedPaymentMethod)
         const response = await MPLogic.onSubmit({selectedPaymentMethod, formData })
-        if(selectedPaymentMethod === 'bank_transfer'){
-            setShowStatusBrick(true)
-        }
-        setPaymentStatus(response)
+        if(selectedPaymentMethod === 'bank_transfer' || selectedPaymentMethod === 'ticket') router.push(`/payments/callback?payment_id=${response.id}`)
+        if(response.status === 'approved' && response.status_detail === 'accredited')  router.push(`/payments/success?payment_id=${response.id}`)
+        if(response.status === 'rejected')  router.push(`/payments/error?payment_id=${response.id}`)
+        
         
        
         
@@ -60,14 +62,8 @@ export default function PaymentView() {
 
   return (
    <div className="flex flex-row">
-    {paymentStatus && paymentStatus.status && paymentStatus.status === 'approved' && paymentStatus.status_detail && paymentStatus.status_detail ==='accredited' && <p>Pago aprobado</p>} 
-    {paymentStatus && paymentStatus.status && paymentStatus.status === 'rejected' &&  <p>Pago rechazado</p>}
-    {showStatusBrick && <StatusScreen
-   initialization={{paymentId:paymentStatus.id.toString()}}
-   onReady={async ()=>{}}
-   onError={async ()=>{}}
-/>}
-    <Payments customization={customization} initialization={initialization} onSubmit={onSubmitPayment}/> 
+   
+    <Payments  customization={customization} initialization={initialization} onSubmit={onSubmitPayment}/> 
    </div>
   )
 }

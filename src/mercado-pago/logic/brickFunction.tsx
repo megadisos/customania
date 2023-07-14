@@ -7,12 +7,14 @@ import { Prefrence } from "../models/brick";
  * @param formData
  */
 export const onSubmit = async ({ selectedPaymentMethod, formData }:any) => {
+ 
   try {
     if(formData.payment_method_id  === 'pse'){
+      const ipAddress = await SharedLogic.getIPAddress()
       formData['description'] = 'pago con pse'
       formData['additional_info'] ={}
-      formData['additional_info']['ip_address'] = '181.136.134.132'
-      formData['callback_url'] = 'https://ce26-2800-e2-5b00-f0f-7e7d-18be-e788-7c52.ngrok-free.app'
+      formData['additional_info']['ip_address'] = ipAddress
+      formData['callback_url'] = 'https://cf67-2800-e2-5b00-f0f-f085-997b-9f8f-f452.ngrok-free.app/payments/callback'
     }
   
     const response = await processPayment(formData)
