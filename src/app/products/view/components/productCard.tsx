@@ -49,11 +49,11 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
        
     },[currentSize])
 
-   const urlName = product.name.split(' ').join('-').toLowerCase()
+   const urlName = product.name && product.name.split(' ').join('-').toLowerCase()
   if(size && size === 'little')  return (
     <>
     <div className="relative flex flex-col gap-1 w-3/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
-     <Link href={{pathname:`/products/${product.type}/${urlName}`,query:{productId:product.id}}}>
+     <Link href={{pathname:`/products/${product.type}/${urlName}`,query:{productId:product._id}}}>
     {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-2 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
          <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
      </div>} 
@@ -67,7 +67,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
  </div>
  </>
      )}   
-     <img src={product.imagepath} className='h-52 w-full hover:absolute hover:h-96 hover:w-72 hover:translate-x-[-10px] hover:border-2 hover:border-cyan-900 hover:translate-y-[-5px] hover:z-10'/>
+     <img src={product.imagesPaths.path1} className='h-52 w-full hover:absolute hover:h-96 hover:w-72 hover:translate-x-[-10px] hover:border-2 hover:border-cyan-900 hover:translate-y-[-5px] hover:z-10'/>
      
      <p className="font-bold">{product.name}</p>
      <p>{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span>${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span>${currentPrice}</span> } </p>
@@ -101,7 +101,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
     {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-20 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
          <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
      </div>} 
-    <img src={product.imagepath} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
+    <img src={product.imagesPaths.path1} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
     </div>
     {/* detalles */}
     <div className='relative flex flex-col w-2/4 gap-2 bg-black bg-opacity-40 p-5'>

@@ -2,8 +2,6 @@ import { Product } from "@/shared/models/products";
 
 const IMAGEPATH = '/images/products'
 export const products:Product[] = [
-    {id:1,name:'Camiseta 1',description:'Camiseta estampada en tecnica',amount:10,available:10,created:'2023-04-12',offer:null,type:'t-shirts',price:25000,imagepath:IMAGEPATH+'/shirts/tshirt_1.jpg',rating:'3',
-    sizes:[{size:'s',amount:2,available:2,price:22000},{size:'m',amount:2,available:2,price:25000}]},
     {id:2,name:'Camiseta 2',description:'Camiseta estampada en tecnica',amount:10,available:10,created:'2023-04-11',offer:20,type:'t-shirts',price:25000,imagepath:IMAGEPATH+'/shirts/tshirt_2.jpg',rating:'3',
     sizes:[{size:'s',amount:2,available:4,price:22000},{size:'m',amount:2,available:2,price:25000}]},
     {id:3,name:'Camiseta 3',description:'Camiseta estampada en tecnica',amount:10,available:10,created:'2023-04-10',offer:10,type:'t-shirts',price:25000,imagepath:IMAGEPATH+'/shirts/tshirt_3.jpg',rating:'5',

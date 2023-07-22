@@ -4,7 +4,7 @@ export type SectionType = 'Offers' | 'Recent' | 'outstanding'
 export type RatingType = '1' |'2'|'3'|'4'|'5'
 
 export interface Product {
-    id:number,
+    _id:string,
     name:string,
     description:string,
     price:number,
@@ -12,19 +12,25 @@ export interface Product {
     type:ProductType,
     amount: number,
     sizes: null | Sizes[],
-    imagepath: string,
+    imagesPaths: ImagesPaths,
     available:number,
     created:string,
     offer: null | number,
 }
 
 
+export interface ImagesPaths {
+    path1:string,
+    pathd2:string,
+    path3:string
+}
 export interface ProductsFromCard extends Product{
     getterSize: SizeType | null,
     cartQuantity: number
 }
 
 interface Sizes {
+    id:string,
     size:SizeType,
     amount:number,
     available:number,

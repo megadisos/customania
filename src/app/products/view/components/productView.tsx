@@ -1,6 +1,5 @@
 'use client'
-import { MPLogic } from '@/mercado-pago/logic/mercadoPagoLogic'
-import TitleHeader from '@/shared/views/components/titleHeader'
+
 import {
   useQuery,
 } from 'react-query'
@@ -13,6 +12,7 @@ interface ProductViewProps {
 }
 
 export default function ProductView({productId}:ProductViewProps) {
+  console.log(productId)
   const query = useQuery('productById',()=>ProductsLogic.getProduct(productId))
   if(query.isFetching) return <p>Cargando ...</p>
   const product = query.data
