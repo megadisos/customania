@@ -56,9 +56,9 @@ const shadows = payments?'':'shadow-md shadow-amber-400'
         const total = CartLogic.getProductTotals(price,product.cartQuantity)
        
         return (
-          <tr className="text-center border-b border-black h-28" key={product.id}>
+          <tr className="text-center border-b border-black h-28" key={product._id}>
             <td className={tdStyles+' font-bold'}>{index + 1}</td>
-            <td className={tdStyles}><div className="flex flex-row gap-5 justify-center relative cursor-pointer "> <div className="w-1/3 flex justify-end"><img src={product.imagepath} className='w-12 h-12 border border-cyan-900 hover:h-32 hover:w-32 hover:absolute hover:top-[-50px] hover:left-5 shadow-md shadow-cyan-900'/></div><span className="w-2/3 flex mr-2 justify-center items-center"> {product.name}</span></div></td>
+            <td className={tdStyles}><div className="flex flex-row gap-5 justify-center relative cursor-pointer "> <div className="w-1/3 flex justify-end"><img src={product.imagesPaths.path1} className='w-12 h-12 border border-cyan-900 hover:h-32 hover:w-32 hover:absolute hover:top-[-50px] hover:left-5 shadow-md shadow-cyan-900'/></div><span className="w-2/3 flex mr-2 justify-center items-center"> {product.name}</span></div></td>
             <td className={tdStyles}>$ {price}</td>
             <td className={tdStyles}>{product.getterSize}</td>
             <td className={tdStyles}>{product.cartQuantity}</td>

@@ -12,7 +12,7 @@ export default function AddedToCart({product}:AddedToCartProps){
    <div className="flex flex-col justify-center items-center">
     {/* product Info */}
     <div className="flex flex-row mt-2 mb-5">
-    <img src={product.imagepath} className='w-12 h-12 border border-cyan-900 shadow-md shadow-cyan-900'/> <span className="ml-2 font-bold text-xl mt-2"> {product.name} fue agregado/a a tu carrito!</span>
+    <img src={product.imagesPaths.path1} className='w-12 h-12 border border-cyan-900 shadow-md shadow-cyan-900'/> <span className="ml-2 font-bold text-xl mt-2"> {product.name} fue agregado/a a tu carrito!</span>
     </div>
 {/* Botones */}
 <div className="flex flex-col gap-2">

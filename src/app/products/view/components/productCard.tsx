@@ -85,7 +85,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
         setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
         SharedLogic.showCartModal(product)
     }}/>
-     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product.id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="full" type="success"/></Link>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="full" type="success"/></Link>
     </div> 
     </>
    )
@@ -121,7 +121,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
         setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
         SharedLogic.showCartModal(product)
      }}/>
-     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product.id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="50%" type="success" height="big"/></Link>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="50%" type="success" height="big"/></Link>
      </div>
     </div> 
   </div>
