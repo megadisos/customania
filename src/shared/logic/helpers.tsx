@@ -2,11 +2,11 @@ import { Product, ProductsFromCard } from "@/app/products/models/products"
 import { getClientApiAddress } from "../data/getIPAddress"
 import { getColombiaCities } from "../data/getSharedInfo"
 
-export const convertObjectsArrayToString = (object:ProductsFromCard[]):string =>{
+export const convertObjectsArrayToString = (object:any):string =>{
     return JSON.stringify(object)
 }
 
-export const convertStringToObjectsArray = (object:string):ProductsFromCard[] =>{
+export const convertStringToObjectsArray = (object:string):any =>{
     return JSON.parse(object)
 }
 

@@ -1,4 +1,4 @@
-import { closeCartModal, showCartModal } from "./events";
+import { closeCartModal, closeLoginModal, showCartModal, showLoginModal } from "./events";
 import { convertObjectsArrayToString, convertStringToObjectsArray, getCities, getIPAddress } from "./helpers";
 import { getPaymentById } from "./payments";
 
@@ -10,5 +10,7 @@ export const SharedLogic = {
     closeCartModal,
     getIPAddress,
     getPaymentById,
-    getCities
+    getCities,
+    showLoginModal,
+    closeLoginModal
 }
