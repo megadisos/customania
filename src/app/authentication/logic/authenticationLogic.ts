@@ -1,4 +1,4 @@
-import { isAuthenticated, jwtVerification, login } from "./authenticationTasks";
+import { isAuthenticated, isValidToken, jwtVerification, login, logout, register } from "./authenticationTasks";
 import { getLCToken, getLCUserId, getLCUsername } from "./getAuthData";
 
 export const AuthLogic = {
@@ -7,5 +7,8 @@ export const AuthLogic = {
     getLCUserId,
     getLCToken,
     jwtVerification,
-    isAuthenticated
+    isAuthenticated,
+    isValidToken,
+    logout,
+    register
 }

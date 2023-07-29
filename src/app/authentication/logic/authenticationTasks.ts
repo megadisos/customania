@@ -1,9 +1,10 @@
 
-import { loginApi } from "../data/authentication";
-import { LoginParams } from "../models/authentication";
+import { isValidTokenApi, loginApi, logOutApi, RegisterUser } from "../data/authentication";
+import { AuthInfo, LoginParams, User } from "../models/authentication";
 import { SharedLogic } from "@/shared/logic/sharedLogic";
 import jwt from 'jsonwebtoken';
 import { AuthLogic } from "./authenticationLogic";
+
 
 export const login = async (loginData:LoginParams) =>{
     try {
@@ -34,6 +35,40 @@ try {
 }
 }
 
-export const isAuthenticated = () =>{
-    return AuthLogic.getLCToken() && AuthLogic.getLCUserId()
+export const isValidToken = async (userInfo:AuthInfo) =>{
+   const response = await isValidTokenApi(userInfo)
+   return response
+}
+
+
+export const isAuthenticated = async () =>{
+    const token = AuthLogic.getLCToken() 
+    const userId = AuthLogic.getLCUserId()
+    if(token===null || userId=== null) return false
+    const userInfo = {token,userId}
+    const resp = await isValidToken(userInfo)
+    return resp
 } 
+
+export const logout= async () =>{
+    const token = AuthLogic.getLCToken() 
+    const userId = AuthLogic.getLCUserId()
+    if(token===null || userId=== null) return false
+    const userInfo = {token,userId}
+    const resp = await logOutApi(userInfo)
+    localStorage.removeItem('cm-authentication');
+    return resp
+} 
+
+
+export const register = async (user:User) =>{
+    try {
+        const response = await RegisterUser(user)
+        if(response.error === null){
+            return {status:true,error:null}
+        }
+    } catch (error:any) {
+        return {status:false,error:error.response.data}    
+    }
+    
+}

@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLogic } from "../../logic/authenticationLogic"
 import { LoginParams } from "../../models/authentication"
 import { useRouter } from "next/navigation"
+import { SharedLogic } from "@/shared/logic/sharedLogic"
 
 
 export default function LoginForm() {
@@ -39,7 +40,7 @@ export default function LoginForm() {
       )}
       <div className="flex justify-center mt-4"><Button type="normal" name="Entrar" size="50%" position="center"/></div>
       <p className=" text-xs mt-2 text-center" role="alert">¿Perdiste tu contraseña?<span className="font-bold cursor-pointer underline ml-1">Recuperar</span></p>
-      <p className=" text-xs mt-2 text-center" role="alert">¿No tienes cuenta? <span className="font-bold cursor-pointer underline ml-1">Registrate</span></p>
+      <p className=" text-xs mt-2 text-center" role="alert">¿No tienes cuenta? <span  className="font-bold cursor-pointer underline ml-1" onClick={()=>SharedLogic.showModal({type:'Register',opts:'Open'})}>Registrate</span></p>
     </form>
     </div>
     </div>

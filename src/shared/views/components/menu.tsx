@@ -5,25 +5,44 @@ import { SharedLogic } from "@/shared/logic/sharedLogic";
 import { faCartShopping, faCircleUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { usePathname } from 'next/navigation'
-import { useContext } from "react";
+import { usePathname, useRouter } from 'next/navigation'
+import { useContext} from "react";
 interface MenuProps {
     direction:'row' | 'column'
 }
 
 export default function Menu({direction}:MenuProps){
     const  {totalInCart} = useContext(CartContext)
+    const isAuthenticated = AuthLogic.getLCToken() !== null && AuthLogic.getLCUserId() !== null
+    const router = useRouter();
     const pathname = usePathname()
-    const isAuthenticated =  AuthLogic.isAuthenticated()
     const menuSy = 'hover:animate-wiggle hover:text-xl'
     const menuDirection = direction ==='row'?'flex-row':'flex-col'
+
+  
     return (
                 <ul className={`flex ${menuDirection} gap-4 mr-5 font-medium`}>
                     <li className={`${menuSy} ${pathname==="/"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Home </Link></li>
                     <li className={`${menuSy} ${pathname==="/products"?"border-b-2 border-cyan-900":""}`}><Link href='/products'>Productos</Link></li>
+                    {isAuthenticated && <li className={`${menuSy} ${pathname==="/profile"?"border-b-2 border-cyan-900":""}`}><Link href='/profile'>Perfil</Link></li> }
                     <li className={`${menuSy} ${pathname==="/about"?"border-b-2 border-cyan-900":""}`}><Link href='/about'>Acerca de</Link></li>
                     <li className="hover:text-xl"><Link href='/cart'><div className="relative"><FontAwesomeIcon icon={faCartShopping} size='lg' title="Carrito de compras" style={{'cursor':'pointer'}} /><div className="absolute top-[-10px] right-[-10px] rounded-full w-5 h-5 text-red-900  bg-amber-400 flex justify-center items-center text-sm font-bold">{totalInCart}</div></div></Link></li>
-                    <li className="hover:text-xl"><FontAwesomeIcon icon={isAuthenticated?faRightFromBracket:faCircleUser} size='lg' title={isAuthenticated?"Cerrar sesion":"Iniciar sesion"} style={{'cursor':'pointer'}} onClick={()=>SharedLogic.showLoginModal()}/></li>
+                    <li className="hover:text-xl">
+                    <FontAwesomeIcon  
+                    icon={isAuthenticated?faRightFromBracket:faCircleUser} 
+                    size='lg' title={isAuthenticated?"Cerrar sesion":"Iniciar sesion"} 
+                    style={{'cursor':'pointer'}} 
+                    onClick={async ()=>{
+                        if(isAuthenticated){
+                            await AuthLogic.logout()
+                            SharedLogic.showAlertModal({msg:'Se cerro sesion exitosamente!',type:'success'})
+                            if(pathname ==='/profile') return router.push('/')
+                            return router.push('/profile')
+                        } 
+                        SharedLogic.showModal({type:'Login',opts:"Open"})
+                    }}
+                />
+                    </li>
                 </ul>
         )
-}
+} 

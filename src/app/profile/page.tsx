@@ -10,7 +10,7 @@ export default function Profile() {
 
 
   return (
-    <Authenticated >
+    <Authenticated isProfile={true}>
        <Layout>
       hola
 </Layout>
