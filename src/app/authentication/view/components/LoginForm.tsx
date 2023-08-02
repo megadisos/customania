@@ -42,7 +42,7 @@ export default function LoginForm({msg}:LoginFormProps) {
         <p className="text-red-700 font-bold text-sm mb-1" role="alert">Password es mandatorio!</p>
       )}
       <div className="flex justify-center mt-4"><Button type="normal" name="Entrar" size="50%" position="center"/></div>
-      <p className=" text-xs mt-2 text-center" role="alert">¿Perdiste tu contraseña?<span className="font-bold cursor-pointer underline ml-1">Recuperar</span></p>
+      {/* <p className=" text-xs mt-2 text-center" role="alert">¿Perdiste tu contraseña?<span className="font-bold cursor-pointer underline ml-1">Recuperar</span></p> */}
       <p className=" text-xs mt-2 text-center" role="alert">¿No tienes cuenta? <span  className="font-bold cursor-pointer underline ml-1" onClick={()=>SharedLogic.showModal({type:'Register',opts:'Open'})}>Registrate</span></p>
     </form>
     </div>
