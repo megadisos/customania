@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { AuthLogic } from "../../logic/authenticationLogic"
 import {  RegisterParams, User } from "../../models/authentication"
 import { useRouter } from "next/navigation"
+import { SharedLogic } from "@/shared/logic/sharedLogic"
 
 
 export default function RegisterForm() {
@@ -16,7 +17,7 @@ export default function RegisterForm() {
     const user:User = {email:data.email,password:data.password,username:data.username}
     const resp = await AuthLogic.register(user)
     if(resp?.status) {
-      console.log('hola')
+      SharedLogic.showModal({type:'Login',opts:'Open',msg:'El usuario fue registrado con exito!'})
     }
     setError(resp?.error)
   }

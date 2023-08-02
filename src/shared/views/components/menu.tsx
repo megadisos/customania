@@ -35,8 +35,7 @@ export default function Menu({direction}:MenuProps){
                     onClick={async ()=>{
                         if(isAuthenticated){
                             await AuthLogic.logout()
-                            SharedLogic.showAlertModal({msg:'Se cerro sesion exitosamente!',type:'success'})
-                            if(pathname ==='/profile') return router.push('/')
+                            if(pathname ==='/profile') return router.push('/?logout=true')
                             return router.push('/profile')
                         } 
                         SharedLogic.showModal({type:'Login',opts:"Open"})

@@ -18,7 +18,7 @@ const [isAuthenticated,setIsAuthenticated] = useState(false)
     if(isProfile){
       AuthLogic.isAuthenticated().then(resp=>{
         if(!resp){
-          return router.push('/')
+          return router.push('/?logout=true')
         }
         setIsAuthenticated(true) 
       }) 

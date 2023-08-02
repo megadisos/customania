@@ -9,17 +9,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons"
 import { SharedLogic } from "@/shared/logic/sharedLogic"
 
-
-export default function LogoutComponent() {
+interface LogoutProps {
+  msg?:string | null
+} 
+export default function LogoutComponent({msg}:LogoutProps) {
     
 
   return (
-    <div className="flex flex-col gap-2 p-2">
-       <div className="flex flex-row"> 
-       <FontAwesomeIcon icon={faCircleCheck} color={'#2FDB15'}/>  <span className="ml-2 font-bold">La sesion fue cerrada correctamente!</span>
+    <div className="flex flex-col gap-2 p-2 justify-center items-center">
+       <div className="flex flex-row mb-2"> 
+       <FontAwesomeIcon icon={faCircleCheck} size={'2x'} color={'#166534'}/>  <span className="ml-2 font-bold">La session se cerro exitosamente!</span>
        </div>
        <div>
-        <Button name="Seguir comprando" size="50%" position="center" type="success" onClick={()=>SharedLogic.closeLogoutModal()}></Button>
+        <Button name="Seguir comprando" size="full" position="center" padding={true} type="success" height="fit" onClick={()=>SharedLogic.showModal({type:'Logout',opts:'Close'})}></Button>
        </div>
     </div>
   )

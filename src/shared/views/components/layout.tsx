@@ -1,7 +1,7 @@
 'use client'
 import { CartProvider } from '@/app/cart/view/contexts/cartContext'
 import Header from '@/shared/views/components/header'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Carrousel from './carrousel'
 import {
   QueryClient,
@@ -17,6 +17,7 @@ import LogoutComponent from '@/app/authentication/view/components/Logout'
 import { SharedProps, SnackbarProvider, useSnackbar } from 'notistack'
 import { ModalData, ModalTypes, NotiStyck } from '@/shared/models/shared'
 import RegisterForm from '@/app/authentication/view/components/RegisterForm'
+import { useSearchParams } from 'next/navigation'
 
 const queryClient = new QueryClient()
 
@@ -30,8 +31,13 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
   const [isLogoutModalOpen,setIsLogoutModalOpen] = useState<boolean>(false)
   const [isRegisterodalOpen,setIsRegisterModalOpen] = useState<boolean>(false)
   const [cartProduct,setCartProduct] =  useState<Product | null>(null)
+  const [msg,setMsg] = useState<null | string>(null)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
-
+ const searchParams = useSearchParams()
+ const islogOut = searchParams?.get('logout') as string
+useEffect(()=>{
+  if(islogOut!==null) setIsLogoutModalOpen(true)
+},[])
   // cart modal
   useCustomEventListener('Cart-modal', (product: Product) => {
     setIsCartModalOpen(true)
@@ -45,7 +51,7 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
       setIsLoginModalOpen(false)
       setIsLogoutModalOpen(false)
       setIsRegisterModalOpen(false)
-
+      if(data.msg) setMsg(data.msg)
       if(data.type === 'Login'){
         setIsLoginModalOpen(data.opts === 'Open'?true:false)
       }
@@ -82,7 +88,7 @@ export default function Layout({children,hasCarrousel}:LayoutProps) {
     <SnackbarProvider maxSnack={3}>
     <main className="flex  h-fit flex-col  z-0 gap-1 bg-cover bg-center" style={{backgroundImage: 'url("/images/background.jpg")'}}>
    {isCartModalOpen && <Modal isOpen={isCartModalOpen} setIsOpen={setIsCartModalOpen}><AddedToCart product={cartProduct as Product}/></Modal>}
-   {isLoginModalOpen && <Modal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen}><LoginForm /></Modal>}
+   {isLoginModalOpen && <Modal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen}><LoginForm msg={msg}/></Modal>}
    {isLogoutModalOpen && <Modal isOpen={isLogoutModalOpen} setIsOpen={setIsLogoutModalOpen}><LogoutComponent /></Modal>}
    {isRegisterodalOpen && <Modal isOpen={isRegisterodalOpen} setIsOpen={setIsRegisterModalOpen}><RegisterForm /></Modal>}
     <CartProvider>

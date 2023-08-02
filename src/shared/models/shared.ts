@@ -13,5 +13,6 @@ export type ModalOpts = "Open" | "Close"
 
 export interface ModalData {
     type:ModalTypes,
-    opts:ModalOpts
+    opts:ModalOpts,
+    msg?:string
 }
