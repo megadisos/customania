@@ -18,6 +18,19 @@ export interface Product {
     offer: null | number,
 }
 
+export interface ProductsDataResponse {
+    data: Product[],
+    metadata: Metadata
+}
+
+interface Metadata {
+    
+        items: number,
+        totalItems: number,
+        page: number | null,
+        TotalPages: number
+
+}
 
 export interface ImagesPaths {
     path1:string,

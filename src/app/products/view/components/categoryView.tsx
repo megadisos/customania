@@ -2,11 +2,12 @@
 'use client'
 import Pagination from "@/shared/views/components/pagination"
 import TitleHeader from "@/shared/views/components/titleHeader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
     useQuery,
   } from 'react-query'
 import { ProductsLogic } from "../../logic/productsLogic"
+import { Product, ProductsDataResponse } from "../../models/products"
 import ProductCard from "./productCard"
 
 interface CategoryProps {
@@ -14,28 +15,36 @@ interface CategoryProps {
 }
 const PORDUCT_BY_PAGE =  8
 export default function CategoryView({category}:CategoryProps) {
-    const query = useQuery('AllProducts',ProductsLogic.getAllProducts)
-    const products = query.data
+const [products,setProducts] = useState<Product[]|null>(null)
+const [pages,setPages] = useState<number|null>(null)
+  useEffect(()=>{
+    ProductsLogic.getAllProducts('1',category).then(resp=>{
+      setProducts(resp.data)
+      setPages(resp.metadata.TotalPages)
+    })
+  },[])
+
+
+  
     const elementsNumber = PORDUCT_BY_PAGE -1
     const [limits,setLimits] = useState({minor:0,mayor:elementsNumber})
 
-    const handlePagination = (page:number) =>{ 
-        const newMayor = (elementsNumber * page) + 1
-        const newMenor = newMayor - elementsNumber
-        setLimits({minor:newMenor,mayor:newMayor})
+    const handlePagination = async (page:number) =>{ 
+        const changePage = await ProductsLogic.getAllProducts(page.toString(),category)
+       setProducts(changePage.data)
     }
   return (
     <>
     <TitleHeader title={category.toUpperCase()} />
     <div className="flex flex-row gap-10 flex-wrap mt-5">
-        {products && products.filter(pr=>pr.type === category).filter((pr,index)=>index >= limits.minor  && index<=limits.mayor).map((product,index)=>{
+        {products && products.length >0 && products.map((product,index)=>{
         return(  
         <ProductCard product={product} size={'little'}/>
     )
     })}
     </div>
-    {products && products.filter(pr=>pr.type === category).length >0 && <Pagination elementsByPage={PORDUCT_BY_PAGE} elementsTotal={products?.length} handlePagination={handlePagination}/>} 
+    {products && products.length >0 && <Pagination  elementsTotal={pages as number} handlePagination={handlePagination}/>} 
     </>
   )
 }
- 
+  

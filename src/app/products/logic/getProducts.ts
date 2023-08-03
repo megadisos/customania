@@ -1,13 +1,13 @@
-import { getAllDataProducts, getProductById } from "../data/getProducts";
-import { Product } from "../models/products";
+import { getAllDataProducts, getProductById, getProductsByOffersApi, getProductsByRatingApi, getProductsByRecentsApi } from "../data/getProducts";
+import { Product, ProductsDataResponse } from "../models/products";
 
 
 /**
  * Obtiene la lista de todos los productos.
  * @returns {Product[]} Devuelve un arreglo de productos.
  */
-export const getAllProducts = ():Promise<Product[]> =>{
-    return getAllDataProducts()
+export const getAllProducts = (page:string,category?:string):Promise<ProductsDataResponse> =>{
+    return getAllDataProducts(page,category)
 }
 
 /**
@@ -15,12 +15,8 @@ export const getAllProducts = ():Promise<Product[]> =>{
  * @returns {Product[]} Devuelve un arreglo de productos.
  */
 export const  getProductsByRecentDate = async():Promise<Product[]>=>{
-    const allProducts = await getAllDataProducts()
-    return  allProducts.sort((a,b)=>{
-        const date1 = new Date(a.created).getTime()
-        const date2 = new Date(b.created).getTime()
-        return date2 - date1
-    })
+    const products = await getProductsByRecentsApi()
+    return  products
 }
 
 /**
@@ -28,9 +24,8 @@ export const  getProductsByRecentDate = async():Promise<Product[]>=>{
  * @returns {Product[]} Devuelve un arreglo de productos.
  */
 export const getProductsByOffers = async():Promise<Product[]>=>{
-    const allProducts = await getAllDataProducts()
-    const offerProducts = allProducts.filter(product=>product.offer !== null)
-    return offerProducts.sort((a,b)=>(b.offer as number)-(a.offer as number))
+    const products = await getProductsByOffersApi()
+    return products
 }
 
 /**
@@ -38,12 +33,8 @@ export const getProductsByOffers = async():Promise<Product[]>=>{
  * @returns {Product[]} Devuelve un arreglo de productos.
  */
 export const getProductsByRating = async():Promise<Product[]>=>{
-    const allProducts = await getAllDataProducts()
-    return allProducts.sort((a,b)=>{
-        const rating1 = parseInt(a.rating)
-        const rating2 = parseInt(b.rating)
-        return rating2 - rating1
-    })
+    const products = await getProductsByRatingApi()
+    return products
 }
 
 
