@@ -18,6 +18,11 @@ export interface Product {
     offer: null | number,
 }
 
+export interface Delivery {
+    name:string,
+    city:string,
+    address:string
+}
 export interface ProductsDataResponse {
     data: Product[],
     metadata: Metadata
