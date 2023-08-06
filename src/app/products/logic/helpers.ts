@@ -45,6 +45,13 @@ export const getProductPriceByDiscountByNot= (product:ProductsFromCard):number=>
 }
 
 
+/**
+ * Returns the Total value of Product 
+ * @param price Product price
+ * @param quantity Product Quantity
+ * @returns {number} returns the value
+ */
 
-
-
+export const getProductTotal = (price:number,quantity:number) =>{
+    return price * quantity
+}

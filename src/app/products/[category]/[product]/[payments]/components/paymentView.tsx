@@ -4,28 +4,19 @@ import {  ProductsFromCard } from "@/app/products/models/products"
 import { MPLogic } from "@/mercado-pago/logic/mercadoPagoLogic"
 import { Items } from "@/mercado-pago/models/brick"
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Payment} from '@mercadopago/sdk-react';
 import TitleHeader from "@/shared/views/components/titleHeader"
 import PaymentDetails from "./paymentDetails"
 import PaymentMercadoPago from "./paymentMercadoPago"
+import { PaymentContext } from "@/app/products/view/contexts/paymentContext"
 
 export default function PaymentView() {
     const router = useRouter();
     const pathname = usePathname()
     const comeFromCart = pathname?.split('/')[3] === 'cart'
     const searchParams = useSearchParams()
-    const [delivery,setDelivery] = useState(false)
-    const [inStore,setInStore] = useState(false)
-    const [buyerInfo,setBuyerInfo] = useState({
-        name:'',
-        city:'',
-        address:''
-    })
-    const [initialization,setInitialization] = useState({ 
-        amount: 0,
-        preferenceId: ''})
-
+    const {setInitialization,initialization,inStore,delivery ,buyerInfo,setPaymentClick,isAllowedToPay} = useContext(PaymentContext)
     useEffect(()=>{
     let items:Items[] = []
     const unit_price = parseInt(searchParams?.get('ammount') as string)
@@ -60,7 +51,6 @@ export default function PaymentView() {
         if(response.status === 'rejected')  router.push(`/payments/error?payment_id=${response.id}`)
             
     }
-   
 
   return (
     <>
@@ -70,9 +60,9 @@ export default function PaymentView() {
     <TitleHeader title="Pagos" />
     </div>
 
-    <div className="flex flex-row gap-2">
-        <PaymentDetails delivery={delivery} inStore={inStore} setDelivery={setDelivery} setInStore={setInStore} setBuyerInfo={setBuyerInfo}/>
-   <div className="w-2/6 mb-5 pointer-events-none">
+    <div className="flex flex-row gap-2" >
+        <PaymentDetails />
+   <div className={`w-2/6 mb-5 ${!isAllowedToPay() && 'pointer-events-none'} `}  >
   <PaymentMercadoPago customization={customization} initialization={initialization} onSubmitPayment={onSubmitPayment} />
    </div>
    </div>

@@ -50,6 +50,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
     },[currentSize])
 
    const urlName = product.name && product.name.split(' ').join('-').toLowerCase()
+   const ammountPrice = section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice
   if(size && size === 'little')  return (
     <>
     <div className="relative flex flex-col gap-1 w-3/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
@@ -85,7 +86,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
         setTotalInCart(CartLogic.AddToCart(product,product.sizes !== null?currentSize:null,ammountToCart))
         SharedLogic.showCartModal(product)
     }}/>
-     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="full" type="success"/></Link>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,price:ammountPrice,ammount:ProductsLogic.getProductTotal(ammountPrice,ammountToCart),quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar" position="right" size="full" type="success"/></Link>
     </div> 
     </>
    )
