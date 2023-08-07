@@ -1,4 +1,6 @@
 'use client'
+import { ProductsLogic } from "@/app/products/logic/productsLogic"
+import { SaleStatus } from "@/app/products/models/sales"
 import { SharedLogic } from "@/shared/logic/sharedLogic"
 import Layout from "@/shared/views/components/layout"
 import { StatusScreen } from "@mercadopago/sdk-react"
@@ -14,12 +16,13 @@ export default function Callback({}:CallbackProps ) {
   const searchParams = useSearchParams()
  const [status,setStatus] = useState({status:'',status_detail:''})
   const transactionId = searchParams?.get('payment_id')  as string
+  const isDelivery = searchParams?.get('isDelivery')  as string
+ 
 
   const onPaymentReady = async () =>{
     const result = await SharedLogic.getPaymentById(transactionId)
-    console.log(result)
-    if(result.status === 'approved')  router.push(`/payments/success?payment_id=${transactionId}`)
-    if(result.status === 'rejected')  router.push(`/payments/error?payment_id=${transactionId}`)
+    if(result.status === 'approved')router.push(`/payments/success?payment_id=${transactionId}&status=${result.status}&status_detail=${result.status_detail}&isDelivery=${isDelivery}`)
+    if(result.status === 'rejected')  router.push(`/payments/error?payment_id=${transactionId}&status=${result.status}&status_detail=${result.status_detail}`)
     
   }
   return (

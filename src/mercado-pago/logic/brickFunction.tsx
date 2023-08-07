@@ -14,7 +14,7 @@ export const onSubmit = async ({ selectedPaymentMethod, formData }:any) => {
       formData['description'] = 'pago con pse'
       formData['additional_info'] ={}
       formData['additional_info']['ip_address'] = ipAddress
-      formData['callback_url'] = 'https://cf67-2800-e2-5b00-f0f-f085-997b-9f8f-f452.ngrok-free.app/payments/callback'
+      formData['callback_url'] = 'https://cf63-2800-e2-5b80-18de-c66f-9e9a-202e-7987.ngrok-free.app/payments/callback'
     }
   
     const response = await processPayment(formData)

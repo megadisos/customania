@@ -1,4 +1,5 @@
 'use client'
+import { Items } from "@/mercado-pago/models/brick";
 import { createContext, Dispatch, FC, SetStateAction, useEffect, useState } from "react";
 
 interface  BuyerInfo {
@@ -23,7 +24,7 @@ type PaymentContext = {
     setInitialization: Dispatch<SetStateAction<Initialization>>
     paymentClick: boolean;
     setPaymentClick: Dispatch<SetStateAction<boolean>>;
-    isAllowedToPay: () => boolean | undefined
+    isAllowedToPay: () => boolean | undefined;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
@@ -43,6 +44,7 @@ export const PaymentProvider = ({ children }:any) => {
         amount: 0,
         preferenceId: ''})
     const [paymentClick,setPaymentClick] = useState(false)
+    const  [items,setItems] = useState<Items|[]>([])
     const isAllowedToPay = () =>{
         if(inStore) return true
         if(delivery){
