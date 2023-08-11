@@ -1,7 +1,9 @@
 'use client'
+import Authenticated from "@/app/authentication/view/components/Authenticated"
 import { ProductsLogic } from "@/app/products/logic/productsLogic"
 import { SaleStatus } from "@/app/products/models/sales"
 import { SharedLogic } from "@/shared/logic/sharedLogic"
+import Button from "@/shared/views/components/button"
 import Layout from "@/shared/views/components/layout"
 import { StatusScreen } from "@mercadopago/sdk-react"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -17,6 +19,7 @@ export default function Callback({}:CallbackProps ) {
  const [status,setStatus] = useState({status:'',status_detail:''})
   const transactionId = searchParams?.get('payment_id')  as string
   const isDelivery = searchParams?.get('isDelivery')  as string
+  const method = searchParams?.get('method')  as string
  
 
   const onPaymentReady = async () =>{
@@ -27,7 +30,7 @@ export default function Callback({}:CallbackProps ) {
   }
   return (
    <Layout>
-    <div className="flex flex-column justify-center h-screen">
+    <div className="flex flex-col justify-top items-center h-screen gap-4">
     {status.status}
     <StatusScreen
    initialization={{paymentId:transactionId}}
@@ -40,7 +43,14 @@ export default function Callback({}:CallbackProps ) {
    onError={async ()=>{}}
    locale={'es-CO'}
 />
+{method === 'efecty' && <>
+<Button name="Seguir comprando" position="center" size="25%" height="big" type="normal" onClick={()=>router.push('/cart')}/>
+<Authenticated isProfile={false}>
+<Button name="Seguir orden" position="center" size="25%" height="big" type="success" onClick={()=>router.push('/')}/>
+</Authenticated></>}
+
     </div>
+   
    </Layout>
   )
 }

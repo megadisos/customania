@@ -1,9 +1,13 @@
 'use client'
+import Authenticated from "@/app/authentication/view/components/Authenticated"
 import { ProductsLogic } from "@/app/products/logic/productsLogic"
 import { SaleStatus } from "@/app/products/models/sales"
 import Product from "@/app/products/[category]/[product]/page"
+import Button from "@/shared/views/components/button"
 import Layout from "@/shared/views/components/layout"
-import { useSearchParams } from "next/navigation"
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 
 interface SuccessPaymenProps {
@@ -15,6 +19,7 @@ export default function SuccessPayment() {
     const status = searchParams?.get('status')  as string
     const status_detail = searchParams?.get('status_detail')  as string
     const isDelivery = searchParams?.get('isDelivery')  as string
+    const router = useRouter()
     useEffect(()=>{
       const updateObj:SaleStatus = {
         status,
@@ -22,12 +27,23 @@ export default function SuccessPayment() {
         status_detail
       }
       ProductsLogic.updateSale(updateObj,transactionId).then(resp=>{
-        if(resp) console.log('Updated!')
+        if(resp) console.log('7777',resp)
       })
     },[])
   return (
    <Layout>
-    <div><h1>Felicitaciones tu compra id {transactionId} fue hecha! </h1></div>
+      <div className="flex flex-col h-screen justify-top items-center gap-2">
+      <div className="bg-white bg-opacity-70 p-5 flex flex-col gap-2 mb-2"> 
+      <FontAwesomeIcon icon={faThumbsUp} size={'4x'} color={'#166534'}/>
+      
+      <h1><span className="font-bold"></span> Tu  compra id <span className="font-bold">{transactionId}</span>  ha sido aprobada con exito! </h1>
+      </div>
+    
+<Button name="Seguir comprando" position="center" size="25%" height="big" type="normal" onClick={()=>router.push('/cart')}/>
+<Authenticated isProfile={false}>
+<Button name="Seguir orden" position="center" size="25%" height="big" type="success" onClick={()=>router.push('/')}/>
+</Authenticated>
+      </div>
    </Layout>
   )
 }

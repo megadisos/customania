@@ -1,7 +1,7 @@
 interface Payer {
     email: string
     entity_type?:string
-    identification: Identification
+    identification?: Identification
 }
 interface Identification {
     type: string,

@@ -29,11 +29,12 @@ export default function PaymentView() {
         const id = searchParams?.get('productId')  as string
         const title = searchParams?.get('name') as string
         const quantity = parseInt(searchParams?.get('quantity') as string)
+        const size = searchParams?.get('size')  as string
         items = [{
             id,
             title,
             quantity,
-            unit_price
+            unit_price,
         }]
        
     }
@@ -51,7 +52,8 @@ export default function PaymentView() {
         const title =  searchParams?.get('name')  as string
         const quantity =  parseInt(searchParams?.get('quantity')  as string)
         const unit_price =  parseInt(searchParams?.get('price')  as string)
-        return [{id,title,quantity,unit_price}]
+        const size = searchParams?.get('size')  as string
+        return [{id,title,quantity,unit_price,size}]
     }
 
     const customization = MPLogic.getCustomizationObject()
@@ -59,7 +61,7 @@ export default function PaymentView() {
         const response = await MPLogic.onSubmit({selectedPaymentMethod, formData })
         
         const isTransactionApporved =  response.status === 'approved' && response.status_detail === 'accredited'
-        
+        console.log('here',formData,response)
         const saleObject:Sale = {
             transactionId:response.id,
             status:response.status,
@@ -83,7 +85,7 @@ export default function PaymentView() {
             console.log('there is an error fuck! ',error)
         }
         
-        if(selectedPaymentMethod === 'bank_transfer' || selectedPaymentMethod === 'ticket' || response.status === 'pending') router.push(`/payments/callback?payment_id=${response.id}&isDelivery=${delivery}`)
+        if(selectedPaymentMethod === 'bank_transfer' || selectedPaymentMethod === 'ticket' || response.status === 'pending') router.push(`/payments/callback?payment_id=${response.id}&isDelivery=${delivery}&method=${formData.payment_method_id}`)
         if(isTransactionApporved)  router.push(`/payments/success?payment_id=${response.id}&status=${response.status}&status_detail=${response.status_detail}&isDelivery=${delivery}`)
         if(response.status === 'rejected')  router.push(`/payments/error?payment_id=${response.id}&status=${response.status}&status_detail=${response.status_detail}`)
             

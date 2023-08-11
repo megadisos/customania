@@ -25,7 +25,8 @@ export interface Items {
     id: string,
     title: string,
     quantity: number,
-    unit_price: number
+    unit_price: number,
+    size?:string,
 }
 
 export interface PaymentInfo {

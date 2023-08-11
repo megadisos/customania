@@ -25,7 +25,8 @@ export const convertCartItemsToMPItems = (cartItems:ProductsFromCard[]):Items[] 
             id:item._id.toString(),
             quantity:item.cartQuantity,
             title:item.name,
-            unit_price:item.offer ? ProductsLogic.getProductDiscount(item.price,item.offer):item.price
+            unit_price:item.offer ? ProductsLogic.getProductDiscount(item.price,item.offer):item.price,
+            size:item.getterSize as string
         }
         items.push(newItem)
     })
