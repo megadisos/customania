@@ -47,7 +47,7 @@ export default function Products(){
                     <TitleHeader title={section.title} icon={faGifts}/>
                     <div className="flex flex-col md:flex-row w-full items-center gap-8  justify-center mt-4 mb-10 ">
                         {eval(section.arrayName) && eval(section.arrayName).filter((pr:Product,index:number)=>index<=9).filter((pr: Product,index: number)=>index>=section.productLimit.minor && index<=section.productLimit.mayor).map((product: Product)=>{
-                            return  <ProductCard product={product} section={(section.title as SectionType)} size={'little'}/>
+                            if(product.available > 0) return  <ProductCard product={product} section={(section.title as SectionType)} size={'little'}/>
                         })}
                        {section.arrows.right  && <div id="arrow-right" className={ICONSTYLES+ ' right-10'} onClick={()=>handleArrowsButton('right',section.title)}>
                     <FontAwesomeIcon icon={faArrowRight} size='2xl'/>

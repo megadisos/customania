@@ -1,7 +1,8 @@
 'use client'
 import Authenticated from "@/app/authentication/view/components/Authenticated"
 import { ProductsLogic } from "@/app/products/logic/productsLogic"
-import { SaleStatus } from "@/app/products/models/sales"
+import { ProductUpdateResponse } from "@/app/products/models/products"
+import { Sale, SaleStatus } from "@/app/products/models/sales"
 import Product from "@/app/products/[category]/[product]/page"
 import Button from "@/shared/views/components/button"
 import Layout from "@/shared/views/components/layout"
@@ -27,7 +28,10 @@ export default function SuccessPayment() {
         status_detail
       }
       ProductsLogic.updateSale(updateObj,transactionId).then(resp=>{
-        if(resp) console.log('7777',resp)
+
+        if(resp && resp.error === null ) {
+          ProductsLogic.updateProductsQuantities((resp.data as Sale).items).then(resp=>console.log(resp))
+        }
       })
     },[])
   return (

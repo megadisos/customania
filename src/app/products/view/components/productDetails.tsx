@@ -40,7 +40,7 @@ export default function ProductDetails({product,currentAvailable,urlName,renderS
     </div>
     {/* imagen */}
     <div className='relative flex flex-col items-center w-2/4'>
-    {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-20 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
+    {product.offer !== 0 && <div className="absolute  rounded top-[-10px]  left-20 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
          <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
      </div>} 
     <img src={product.imagesPaths.path1} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
@@ -49,7 +49,7 @@ export default function ProductDetails({product,currentAvailable,urlName,renderS
     <div className='relative flex flex-col w-2/4 gap-2 bg-black bg-opacity-40 p-5'>
     <h1 className='text-white self-center mt-4 mb-2 text-3xl font-bold'>Descripcion</h1>
     <p className='text-white self-center  mb-2 text-xl'>{product.description}</p>
-    <p className="text-white text-3xl mb-2 mt-5">{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span >${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span >${currentPrice}</span> } </p>
+    <p className="text-white text-3xl mb-2 mt-5">{product.offer !== 0?<> <span className="line-through">${currentPrice}</span> <span >${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span >${currentPrice}</span> } </p>
      <p className="text-xl mb-5 mt-5">{product.sizes !== null && <><span className="font-bold text-white">Size:</span> <select onChange={(e)=>{setCurrentSize((e.target.value as SizeType)); setAmmountToCart(1)}} value={currentSize}>
                      {product.sizes.filter(size=>size.available > 0).map(size=>{
                          return (
@@ -66,7 +66,7 @@ export default function ProductDetails({product,currentAvailable,urlName,renderS
      }}/>
      </div>
      <div className=" w-4/5">
-     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,ammount:section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar"  position="right" size="full" type="success" height="big"/></Link>
+     <Link href={{pathname:`/products/${product.type}/${urlName}/payments`,query:{productId:product._id,name:product.name,ammount:product.offer !== 0 ?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice,quantity:ammountToCart,size:product.sizes !==null?currentSize:null}}}><Button name="Comprar"  position="right" size="full" type="success" height="big"/></Link>
      </div>
      </div>
     </div> 

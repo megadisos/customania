@@ -38,24 +38,45 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
     const [currentAvailable,setCurrentAvailable] = useState<number>(1)
     const [ammountToCart,setAmmountToCart] =  useState<number>(1)
     const  {setTotalInCart} = useContext(CartContext)
+   
+    useEffect(()=>{
+        if(product._id === '64bb3cfc971b3fad04947924' && section === 'outstanding') console.log('holas ',product)
+        if(product.sizes !== null){
+            let foundAvailableSize = false;
+            product.sizes.forEach(size=>{
+                if(!foundAvailableSize && size.available > 0){
+                    setCurrentAvailable(size.available)
+                    setCurrentSize(size.size)
+                    foundAvailableSize = true
+                } 
+            })
+            return
+        }
+        setCurrentAvailable(product.available)
+        
+    },[])
     useEffect(()=>{
         if(product.sizes !== null){
             const sizeIndex = product.sizes.findIndex(size=>size.size === currentSize)
-            const price = product.sizes[sizeIndex].price
-            const available = product.sizes[sizeIndex].available
-            setCurrentAvailable(available)
-            setCurrentPrice(price)
+            const selectedSize = product.sizes[sizeIndex];
+            if (selectedSize) {
+                setCurrentAvailable(selectedSize.available);
+                setCurrentPrice(selectedSize.price);
+            }
+          
         }
+
+        if(product.sizes === null) setCurrentAvailable(product.available)
        
-    },[currentSize])
+    },[currentSize,product])
 
    const urlName = product.name && product.name.split(' ').join('-').toLowerCase()
-   const ammountPrice = section === 'Offers'?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice
+   const ammountPrice = product.offer !== 0?ProductsLogic.getProductDiscount(currentPrice,product.offer):currentPrice
   if(size && size === 'little')  return (
     <>
-    <div className="relative flex flex-col gap-1 w-3/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
+    <div className="relative flex flex-col gap-1 w-4/5  md:w-1/5 h-96 bg-gradient-to-tl from-red-900 via-amber-400 to-cyan-900 p-1 shadow-lg shadow-cyan-900  cursor-pointer" >
      <Link href={{pathname:`/products/${product.type}/${urlName}`,query:{productId:product._id}}}>
-    {section === 'Offers' && <div className="absolute  rounded top-[-10px]  left-2 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
+    { product.offer !== 0 && <div className="absolute  rounded top-[-10px]  left-2 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
          <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
      </div>} 
  
@@ -71,7 +92,7 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
      <img src={product.imagesPaths.path1} className='h-52 w-full hover:absolute hover:h-96 hover:w-72 hover:translate-x-[-10px] hover:border-2 hover:border-cyan-900 hover:translate-y-[-5px] hover:z-10'/>
      
      <p className="font-bold">{product.name}</p>
-     <p>{section === 'Offers'?<> <span className="line-through">${currentPrice}</span> <span>${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span>${currentPrice}</span> } </p>
+     <p>{product.offer !== 0 ?<> <span className="line-through">${currentPrice}</span> <span>${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span>${currentPrice}</span> } </p>
      </Link>  
      <p>{product.sizes !== null && <><span className="font-bold">Size:</span> <select onChange={(e)=>{setCurrentSize((e.target.value as SizeType)); setAmmountToCart(1)}} value={currentSize}>
                      {product.sizes.filter(size=>size.available > 0).map(size=>{

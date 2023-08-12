@@ -15,7 +15,7 @@ export interface Product {
     imagesPaths: ImagesPaths,
     available:number,
     created:string,
-    offer: null | number,
+    offer:  number,
 }
 
 export interface Delivery {
@@ -35,6 +35,11 @@ interface Metadata {
         page: number | null,
         TotalPages: number
 
+}
+
+export interface ProductUpdateResponse<T> {
+    error:null | string,
+    data:T | null
 }
 
 export interface ImagesPaths {

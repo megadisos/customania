@@ -1,4 +1,5 @@
 import { registerNewSale, updateSaleApi } from "../data/postSales"
+import { ProductUpdateResponse } from "../models/products"
 import { Sale, SaleStatus } from "../models/sales"
 
 /**
@@ -17,6 +18,6 @@ export const createNewSale = (sale:Sale):Promise<Sale> =>{
  * @param transactionId id
  * @returns {Sale} Devuelve un arreglo de productos.
  */
-export const updateSale = (newStatus:SaleStatus,transactionId:string):Promise<Sale> =>{
+export const updateSale = (newStatus:SaleStatus,transactionId:string):Promise<ProductUpdateResponse<Sale>> =>{
     return updateSaleApi(newStatus,transactionId)
 }
