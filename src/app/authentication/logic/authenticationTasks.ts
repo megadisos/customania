@@ -4,6 +4,7 @@ import { AuthInfo, LoginParams, User } from "../models/authentication";
 import { SharedLogic } from "@/shared/logic/sharedLogic";
 import jwt from 'jsonwebtoken';
 import { AuthLogic } from "./authenticationLogic";
+import userLogic from "@/app/profile/logic/usersLogic";
 
 
 export const login = async (loginData:LoginParams) =>{
@@ -72,3 +73,13 @@ export const register = async (user:User) =>{
     }
     
 }
+
+
+export const isSuperAdmin = async () =>{
+    const userId =AuthLogic.getLCUserId()
+    const user = await userLogic.getUser(userId)
+    console.log('users ',user)
+    if(user.error !== null) return false
+    if (!user.data?.superadmin) return false
+    return true
+  }

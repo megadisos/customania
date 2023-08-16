@@ -1,3 +1,5 @@
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core"
+
 export interface CityInfo {
     region:string,
     c_digo_dane_del_departamento:string,
@@ -15,4 +17,12 @@ export interface ModalData {
     type:ModalTypes,
     opts:ModalOpts,
     msg?:string
+}
+
+
+export interface SideBarMenu {
+    name:string,
+    icon:IconDefinition,
+    enabled:boolean,
+    selected:boolean
 }

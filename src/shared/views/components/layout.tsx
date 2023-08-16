@@ -23,9 +23,10 @@ const queryClient = new QueryClient()
 
 interface LayoutProps {
     children?:React.ReactNode
-    hasCarrousel?:boolean
+    hasCarrousel?:boolean,
+    contentFull?:boolean
 }
-export default function Layout({children,hasCarrousel}:LayoutProps) {
+export default function Layout({children,hasCarrousel,contentFull}:LayoutProps) {
   const [isCartModalOpen,setIsCartModalOpen] = useState<boolean>(false)
   const [isLoginModalOpen,setIsLoginModalOpen] = useState<boolean>(false)
   const [isLogoutModalOpen,setIsLogoutModalOpen] = useState<boolean>(false)
@@ -98,7 +99,7 @@ useEffect(()=>{
    {hasCarrousel && <Carrousel />} 
     </div>
     <div className='flex  justify-center '>
-    <div className='flex flex-col h-fit  mt-14  w-3/4  '>
+    <div className={`flex flex-col h-fit   ${contentFull? 'w-11/12':'w-3/4 mt-14'}  `}>
     <QueryClientProvider client={queryClient}>
         {children}
         </QueryClientProvider>
