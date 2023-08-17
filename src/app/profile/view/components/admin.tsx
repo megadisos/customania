@@ -16,7 +16,7 @@ export default function Admin({}:AdminProps) {
   return (
  <div className="flex flex-col ">
    
-   <TitleHeader  title="Productos"/>
+   <TitleHeader  title="Admin"/>
   
  </div>
   

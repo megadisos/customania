@@ -3,8 +3,10 @@
  * @returns {number} Devuelve el valor del producto con descuento.
  */
 
+import { Items } from "@/mercado-pago/models/brick"
 import { ReadonlyURLSearchParams } from "next/navigation"
 import { Product, ProductsFromCard, SizeType } from "../models/products"
+import { ProductsLogic } from "./productsLogic"
 
 export const getProductDiscount = (price:number,offer:number|null):number =>{
     if(offer === null) return price
@@ -54,4 +56,22 @@ export const getProductPriceByDiscountByNot= (product:ProductsFromCard):number=>
 
 export const getProductTotal = (price:number,quantity:number) =>{
     return price * quantity
+}
+
+
+/**
+ * Returns products list base on items sales
+ * @param items
+ * @returns {items} returns the value
+ */
+
+export const getProductsInfoFromSales = async (items:Items[]) =>{
+    const productListPromises = items.map(async (item)=>{
+        const itemInfo = await ProductsLogic.getProduct(item.id)
+        return {...item,imagePath:itemInfo.imagesPaths.path1,name:itemInfo.name,description:itemInfo.description,type:itemInfo.type}
+    })
+
+    const products = Promise.all(productListPromises)
+
+    return products
 }

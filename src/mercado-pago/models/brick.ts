@@ -27,6 +27,11 @@ export interface Items {
     quantity: number,
     unit_price: number,
     size?:string,
+    imagePath?:string,
+    name?:string,
+    description?:string,
+    type?:string
+
 }
 
 export interface PaymentInfo {
