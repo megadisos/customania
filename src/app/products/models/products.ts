@@ -23,8 +23,8 @@ export interface Delivery {
     city:string,
     address:string
 }
-export interface ProductsDataResponse {
-    data: Product[],
+export interface ProductsDataResponse<T> {
+    data: T[],
     metadata: Metadata
 }
 
@@ -33,7 +33,7 @@ interface Metadata {
         items: number,
         totalItems: number,
         page: number | null,
-        TotalPages: number
+        totalPages: number
 
 }
 

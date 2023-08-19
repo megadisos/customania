@@ -1,6 +1,7 @@
 import { AuthLogic } from "@/app/authentication/logic/authenticationLogic";
 import { ProductUpdateResponse } from "@/app/products/models/products";
 import { Sale } from "@/app/products/models/sales";
+import Pagination from "@/shared/views/components/pagination";
 import TitleHeader from "@/shared/views/components/titleHeader"
 import { useEffect, useState } from "react";
 import salesLogic from "../../logic/salesLogic";
@@ -16,13 +17,20 @@ interface PurchasesProps {
 
 export default  function Purchases() {
   const [sales,setSales] = useState<Sale[] | null>(null)
+  const [pages,setPages] = useState<number|null>(null)
+  const userId = AuthLogic.getLCUserId()
   useEffect(()=>{
-    const userId = AuthLogic.getLCUserId()
-  salesLogic.getSaleByUser(userId).then(resp=>{
-    setSales(resp.data as Sale[] | null)
+    
+  salesLogic.getSaleByUser(userId,'1').then(resp=>{
+    setSales(resp.data)
+    setPages(resp.metadata.totalPages)
   })
   },[])
   
+  const handlePagination = async (page:number) =>{ 
+    const changePage = await salesLogic.getSaleByUser(userId,page.toString())
+   setSales(changePage.data)
+}
 
   return (
  <div className="w-full  p-1 ">
@@ -36,7 +44,7 @@ export default  function Purchases() {
       No tiene compras aun!
       </span>}
    </div>
-  
+   {sales && sales.length >0 && <Pagination  elementsTotal={pages as number} handlePagination={handlePagination}/>} 
  </div>
   
   )

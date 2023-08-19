@@ -6,7 +6,7 @@ import { Product, ProductsDataResponse } from "../models/products";
  * Obtiene la lista de todos los productos.
  * @returns {Product[]} Devuelve un arreglo de productos.
  */
-export const getAllProducts = (page:string,category?:string):Promise<ProductsDataResponse> =>{
+export const getAllProducts = (page:string,category?:string):Promise<ProductsDataResponse<Product>> =>{
     return getAllDataProducts(page,category)
 }
 

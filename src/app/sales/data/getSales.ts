@@ -1,4 +1,4 @@
-import { ProductUpdateResponse } from "@/app/products/models/products"
+import { ProductsDataResponse, ProductUpdateResponse } from "@/app/products/models/products"
 import { Sale } from "@/app/products/models/sales"
 import axios, { AxiosResponse } from "axios"
 
@@ -12,8 +12,8 @@ export const getSalesApi =async ():Promise<ProductUpdateResponse<Sale[]>>=>{
     return response.data
 }
 
-export const getSalesByUserIdApi =async (userId:string):Promise<ProductUpdateResponse<Sale>>=>{
-    let path = BASE_API  + API+ SALES_USER +`/${userId}`
-    const response:AxiosResponse<ProductUpdateResponse<Sale>> = await axios.get(path)
+export const getSalesByUserIdApi =async (userId:string,page:string):Promise<ProductsDataResponse<Sale>> =>{
+    let path = BASE_API  + API+ SALES_USER +`/${userId}?page=${page}`
+    const response:AxiosResponse<ProductsDataResponse<Sale>> = await axios.get(path)
     return response.data
 }

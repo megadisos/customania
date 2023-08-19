@@ -20,7 +20,7 @@ const [pages,setPages] = useState<number|null>(null)
   useEffect(()=>{
     ProductsLogic.getAllProducts('1',category).then(resp=>{
       setProducts(resp.data)
-      setPages(resp.metadata.TotalPages)
+      setPages(resp.metadata.totalPages)
     })
   },[])
 
