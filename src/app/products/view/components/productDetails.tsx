@@ -4,7 +4,7 @@ import { SharedLogic } from "@/shared/logic/sharedLogic";
 import Button from "@/shared/views/components/button";
 import Layout from "@/shared/views/components/layout"
 import Link from "next/link";
-import { Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { ProductsLogic } from "../../logic/productsLogic";
 import { Product, RatingType, SectionType, SizeType } from "../../models/products"
 import ItemsCounter from "./itemsCounter";
@@ -24,29 +24,36 @@ interface ProductDetailsProps {
 }
 export default function ProductDetails({product,currentAvailable,urlName,renderStars,currentSize, section,setAmmountToCart,setCurrentPrice,setCurrentSize,ammountToCart,currentPrice}:ProductDetailsProps) {
    const  {setTotalInCart} = useContext(CartContext)
+   const [currentImage,setCurrentImage] = useState<string>(product.imagesPaths.path1)
    const renderImages = () =>{
     for(let image in product.imagesPaths){
       
     }
    }
     return (
-    <div className="flex flex-col  gap-1 w-4/6 h-screen  self-center p-5  cursor-pointer" >
+    <div className="flex flex-col  gap-1 w-5/6 h-screen  self-center p-5  cursor-pointer" >
     {product && 
     <>
   <h1 className='text-white self-center mt-4 mb-5 text-5xl bg-black bg-opacity-50 font-bold'>{product.name}</h1>
-  <div className='flex flex-row mt-5'>
-    <div className="flex flex-col border-2 ">
-
+  <div className='flex flex-row mt-5 '>
+    <div className="flex flex-col w-1/12 ">
+      {Object.entries(product.imagesPaths).map(([key, value])=>{
+        if(value !== null && key !== '_id') return (
+          <div className="border-2 mb-2 " onClick={()=>setCurrentImage(value)}>
+            <img  src={value}/>
+          </div>
+        )
+      })}
     </div>
     {/* imagen */}
     <div className='relative flex flex-col items-center w-2/4'>
     {product.offer !== 0 && <div className="absolute  rounded top-[-10px]  left-20 w-fit p-2 bg-amber-400 bg-opacity-90 text-red-900 animate-bounce">
          <span className="text-stroke-black text-2xl font-black">{product.offer}%</span>
      </div>} 
-    <img src={product.imagesPaths.path1} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
+    <img src={currentImage} className='h-52 w-80 h-auto  mt-5 border-2 border-gradient-to-tl from-red-900 via-amber-400 to-cyan-900'/>
     </div>
     {/* detalles */}
-    <div className='relative flex flex-col w-2/4 gap-2 bg-black bg-opacity-40 p-5'>
+    <div className='relative flex flex-col  gap-2 bg-black bg-opacity-40 p-5 w-5/12'>
     <h1 className='text-white self-center mt-4 mb-2 text-3xl font-bold'>Descripcion</h1>
     <p className='text-white self-center  mb-2 text-xl'>{product.description}</p>
     <p className="text-white text-3xl mb-2 mt-5">{product.offer !== 0?<> <span className="line-through">${currentPrice}</span> <span >${ProductsLogic.getProductDiscount(currentPrice,product.offer)}</span></>: <span >${currentPrice}</span> } </p>
@@ -57,7 +64,7 @@ export default function ProductDetails({product,currentAvailable,urlName,renderS
                          )
                      })}
             </select></>}</p>     
-     <div className="flex flex-row mt-5 "><p className=" w-2/4" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating,'#E5A223')}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable} color='white'/></span></div>
+     <div className="flex flex-row mt-5 "><p className=" w-5/12" title={`${product.rating}/5 estrellas`}>{renderStars(product.rating,'#E5A223')}</p><span className="w-2/4 flex flex-row justify-end"><ItemsCounter ammountToCart={ammountToCart} setAmmountToCart={setAmmountToCart} max={currentAvailable} color='white'/></span></div>
      <div className="flex flex-col absolute bottom-12  w-full items-center gap-2 ">
      <div className="w-4/5">
      <Button name="Agregar al carrito" position="right" size="full" type="normal" height="big" onClick={()=>{

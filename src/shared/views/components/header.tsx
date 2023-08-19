@@ -1,6 +1,7 @@
 "use client"
 import { faBars} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { usePathname } from 'next/navigation'
 import { useState } from "react";
 import Menu from "./menu";
@@ -14,7 +15,7 @@ export default function Header(){
     return (
         <div className="flex flex-row  h-14 bg-gradient-to-l from-red-900 via-amber-400 to-cyan-900  ">
             <div className="flex flex-row w-3/6 items-center ">
-            <img src="/images/logo/Logo_largo_negro_color.png" className="w-1/3  ml-2 "/>
+            <Link href='/'><img src="/images/logo/Logo_largo_negro_color.png" className="w-1/3  ml-2 "/></Link>
             </div>
             {/* Menu horizontal */}
             <div className="flex flex-row w-3/6  justify-end float-right items-center animate-fade-down  invisible sm:visible md:visible">

@@ -22,7 +22,7 @@ export default function Menu({direction}:MenuProps){
   
     return (
                 <ul className={`flex ${menuDirection} gap-4 mr-5 font-medium`}>
-                    <li className={`${menuSy} ${pathname==="/"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Home </Link></li>
+                    <li className={`${menuSy} ${pathname==="/"?"border-b-2 border-cyan-900":""}`}><Link href='/'>Inicio </Link></li>
                     <li className={`${menuSy} ${pathname==="/products"?"border-b-2 border-cyan-900":""}`}><Link href='/products'>Productos</Link></li>
                     {isAuthenticated && <li className={`${menuSy} ${pathname==="/profile"?"border-b-2 border-cyan-900":""}`}><Link href='/profile'>Perfil</Link></li> }
                     <li className={`${menuSy} ${pathname==="/about"?"border-b-2 border-cyan-900":""}`}><Link href='/about'>Acerca de</Link></li>

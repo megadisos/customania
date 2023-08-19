@@ -10,13 +10,13 @@ interface ButtonProps {
     onClick?: MouseEventHandler<HTMLButtonElement> | undefined,
     size: sizeType
     position:'right' | 'left' | 'center',
-    type:'normal' | 'success'
+    type:'normal' | 'success' | 'danger'
     disabled?: boolean,
     height?:'fit' | 'big' 
     padding?:boolean 
 }
 type sizeType = 'full' | '25%' | '50%' | '75%' 
-type buttonType = 'normal' | 'success'
+type buttonType = 'normal' | 'success' |'danger'
 export default function Button({name,onClick,size,position,type,disabled,height,padding}:ButtonProps){
 
     const generateSize = (size:sizeType)=>{
@@ -37,6 +37,8 @@ export default function Button({name,onClick,size,position,type,disabled,height,
                 return 'bg-cyan-900'
             case 'success':
                 return 'bg-green-800'
+            case 'danger':
+                    return 'bg-red-900'
         }
     }
     const btPadding =   padding ?"p-1":''

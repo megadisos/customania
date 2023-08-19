@@ -22,5 +22,6 @@ export interface User {
   email?:string,
   password:string,
   username:string,
-  superadmin:boolean
+  superadmin:boolean,
+  profileImage?:string,
 }

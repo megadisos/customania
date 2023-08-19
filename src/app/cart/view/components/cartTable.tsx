@@ -46,6 +46,7 @@ const handleDelete = (index:number) =>{
 const tdStyles = 'border-r border-black'
 const headColor = 'bg-gradient-to-tl from-amber-400 to-orange-900'
 const shadows = payments?'':'shadow-md shadow-amber-400'
+console.log(products)
   return (
     <>
     <div className={`w-full ${payments?'bg-white':'bg-slate-100 bg-opacity-80'}  ${shadows} rounded`}>
@@ -63,6 +64,11 @@ const shadows = payments?'':'shadow-md shadow-amber-400'
     </thead>
     <tbody>
       {products?.length === 0 && singleProduct === null &&
+      <tr className="text-center h-16 font-bold">
+        <td colSpan={7} >No tienes productos en el carrito!</td>
+      </tr>
+      }
+          {products === null &&
       <tr className="text-center h-16 font-bold">
         <td colSpan={7} >No tienes productos en el carrito!</td>
       </tr>

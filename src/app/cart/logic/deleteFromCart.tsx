@@ -5,7 +5,6 @@ import { SharedLogic } from "@/shared/logic/sharedLogic"
  * @param index element index
  */
 export const DeleteProductsFromCartNotAuthenticated = (index:number):void =>{
-    console.log('entre')
     const products = localStorage.getItem('cm-cart')
     if(products !== null){
         const convertedProducts = SharedLogic.convertStringToObjectsArray(products)
@@ -13,4 +12,10 @@ export const DeleteProductsFromCartNotAuthenticated = (index:number):void =>{
         console.log(updatedProducts,index)
         localStorage.setItem('cm-cart',SharedLogic.convertObjectsArrayToString(updatedProducts))
     }
+}
+/**
+ * Eliminar productos del carrit
+ */
+export const CleanCart = () =>{
+    localStorage.removeItem('cm-cart')
 }

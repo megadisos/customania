@@ -1,9 +1,10 @@
 import { AuthLogic } from "@/app/authentication/logic/authenticationLogic";
 import { ProductUpdateResponse } from "@/app/products/models/products";
 import { Sale } from "@/app/products/models/sales";
+import { ProfileContext } from "@/app/profile/view/context/profileContext";
 import Pagination from "@/shared/views/components/pagination";
 import TitleHeader from "@/shared/views/components/titleHeader"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import salesLogic from "../../logic/salesLogic";
 import SaleCard from "./saleCard";
 
@@ -18,12 +19,15 @@ interface PurchasesProps {
 export default  function Purchases() {
   const [sales,setSales] = useState<Sale[] | null>(null)
   const [pages,setPages] = useState<number|null>(null)
+  const {setTotalPurchases} = useContext(ProfileContext)
   const userId = AuthLogic.getLCUserId()
   useEffect(()=>{
     
   salesLogic.getSaleByUser(userId,'1').then(resp=>{
     setSales(resp.data)
     setPages(resp.metadata.totalPages)
+    console.log('primer',resp)
+    setTotalPurchases(resp.metadata.totalItems)
   })
   },[])
   

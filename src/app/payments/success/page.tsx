@@ -1,5 +1,6 @@
 'use client'
 import Authenticated from "@/app/authentication/view/components/Authenticated"
+import { CartLogic } from "@/app/cart/logic/cartLogic"
 import { ProductsLogic } from "@/app/products/logic/productsLogic"
 import { ProductUpdateResponse } from "@/app/products/models/products"
 import { Sale, SaleStatus } from "@/app/products/models/sales"
@@ -31,6 +32,7 @@ export default function SuccessPayment() {
 
         if(resp && resp.error === null ) {
           ProductsLogic.updateProductsQuantities((resp.data as Sale).items).then(resp=>console.log(resp))
+          CartLogic.CleanCart()
         }
       })
     },[])
