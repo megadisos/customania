@@ -26,3 +26,10 @@ export interface SideBarMenu {
     enabled:boolean,
     selected:boolean
 }
+
+
+export interface Tabs {
+    id:string
+    name:string
+    enabled:boolean
+}
