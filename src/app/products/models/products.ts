@@ -4,7 +4,7 @@ export type SectionType = 'Offers' | 'Recent' | 'outstanding'
 export type RatingType = '1' |'2'|'3'|'4'|'5'
 
 export interface Product {
-    _id:string,
+    _id?:string,
     name:string,
     description:string,
     price:number,
@@ -28,6 +28,9 @@ export interface ProductsDataResponse<T> {
     metadata: Metadata
 }
 
+export interface deleteResponse {
+    deletedCount: number
+}
 interface Metadata {
     
         items: number,
@@ -37,6 +40,14 @@ interface Metadata {
 
 }
 
+
+export interface updateResponse {
+    matchedCount:number; // Number of documents matched
+    modifiedCount:number; // Number of documents modified
+    acknowledged:boolean; // Boolean indicating everything went smoothly.
+    upsertedId:null | string; // null or an id containing a document that had to be upserted.
+    upsertedCount:number
+}
 export interface ProductUpdateResponse<T> {
     error:null | string,
     data:T | null

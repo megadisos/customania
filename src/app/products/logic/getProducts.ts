@@ -1,5 +1,6 @@
 import { getAllDataProducts, getProductById, getProductsByOffersApi, getProductsByRatingApi, getProductsByRecentsApi } from "../data/getProducts";
-import { Product, ProductsDataResponse } from "../models/products";
+import { updateProductApi } from "../data/postProducts";
+import { Product, ProductsDataResponse, ProductUpdateResponse } from "../models/products";
 
 
 /**
@@ -45,3 +46,6 @@ export const getProductsByRating = async():Promise<Product[]>=>{
 export const getProduct = (productId:string):Promise<Product> =>{
     return getProductById(productId)
 }
+
+
+
