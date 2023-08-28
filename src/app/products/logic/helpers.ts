@@ -67,8 +67,8 @@ export const getProductTotal = (price:number,quantity:number) =>{
 
 export const getProductsInfoFromSales = async (items:Items[]) =>{
     const productListPromises = items.map(async (item)=>{
-        const itemInfo = await ProductsLogic.getProduct(item.id)
-        return {...item,imagePath:itemInfo.imagesPaths.path1,name:itemInfo.name,description:itemInfo.description,type:itemInfo.type}
+        const product = await ProductsLogic.getProduct(item.id)
+        return {...item,imagePath:product.data?.imagesPaths.path1,name:product.data?.name,description:product.data?.description,type:product.data?.type}
     })
 
     const products = Promise.all(productListPromises)

@@ -1,4 +1,4 @@
-import { getAllProducts, getProduct, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
+import { getAllProducts, getCategories, getProduct, getProductsByOffers, getProductsByRating, getProductsByRecentDate } from "./getProducts";
 import { convertProductToProductFromCart, getProductDiscount, getProductPriceByDiscountByNot, getProductsInfoFromSales, getProductTotal } from "./helpers";
 import { updateProductsQuantities } from "./postProducts";
 import { createNewSale, updateSale } from "./postSale";
@@ -16,5 +16,6 @@ export const ProductsLogic = {
     createNewSale,
     updateSale,
     updateProductsQuantities,
-    getProductsInfoFromSales
+    getProductsInfoFromSales,
+    getCategories
 }

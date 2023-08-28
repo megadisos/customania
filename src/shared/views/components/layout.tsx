@@ -9,7 +9,7 @@ import {
 } from 'react-query'
 import Modal from './modal'
 import { useCustomEventListener } from 'react-custom-events'
-import { Product } from '@/app/products/models/products'
+import { CreateUpdateProduct, Product } from '@/app/products/models/products'
 import AddedToCart from '@/app/cart/view/components/addedToCart'
 import { MPLogic } from '@/mercado-pago/logic/mercadoPagoLogic'
 import LoginForm from '@/app/authentication/view/components/LoginForm'
@@ -18,6 +18,7 @@ import { SharedProps, SnackbarProvider, useSnackbar } from 'notistack'
 import { ModalData, ModalTypes, NotiStyck } from '@/shared/models/shared'
 import RegisterForm from '@/app/authentication/view/components/RegisterForm'
 import { useSearchParams } from 'next/navigation'
+import CreateEditProductForm from '@/app/profile/view/components/forms/createEditProductForm'
 
 const queryClient = new QueryClient()
 
@@ -31,6 +32,9 @@ export default function Layout({children,hasCarrousel,contentFull}:LayoutProps) 
   const [isLoginModalOpen,setIsLoginModalOpen] = useState<boolean>(false)
   const [isLogoutModalOpen,setIsLogoutModalOpen] = useState<boolean>(false)
   const [isRegisterodalOpen,setIsRegisterModalOpen] = useState<boolean>(false)
+  const [updateModal,setUpdateModal] = useState(false)
+  const [currentProduct,setCurrentProduct] = useState<Product | null>(null)
+const [createModal,setCreateModal] = useState(false)
   const [cartProduct,setCartProduct] =  useState<Product | null>(null)
   const [msg,setMsg] = useState<null | string>(null)
   const { enqueueSnackbar, closeSnackbar } = useSnackbar()
@@ -44,6 +48,13 @@ useEffect(()=>{
     setIsCartModalOpen(true)
     setCartProduct(product)
   });
+
+    // cart modal
+    useCustomEventListener('CreateUpdate-modal', (data:CreateUpdateProduct) => {
+      if(data.type === 'create') return setCreateModal(true)
+      setUpdateModal(true)
+      setCurrentProduct(data.product)
+    });
 
     //Open modal
     useCustomEventListener('OpenClose-Modal', (data:ModalData) => {
@@ -92,6 +103,13 @@ useEffect(()=>{
    {isLoginModalOpen && <Modal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen}><LoginForm msg={msg}/></Modal>}
    {isLogoutModalOpen && <Modal isOpen={isLogoutModalOpen} setIsOpen={setIsLogoutModalOpen}><LogoutComponent /></Modal>}
    {isRegisterodalOpen && <Modal isOpen={isRegisterodalOpen} setIsOpen={setIsRegisterModalOpen}><RegisterForm /></Modal>}
+   {updateModal && <Modal isOpen={updateModal}  setIsOpen={setUpdateModal}>
+    <CreateEditProductForm product={currentProduct as Product}/>
+    </Modal>}
+
+    {createModal && <Modal isOpen={createModal} setIsOpen={setCreateModal}>
+    <CreateEditProductForm />
+    </Modal>}  
     <CartProvider>
     <div className='h-fit flex flex-col rounded shadow-slate-800 '>
     <div className='flex flex-col mb-5' >

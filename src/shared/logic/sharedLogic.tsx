@@ -1,4 +1,4 @@
-import {  showAlertModal, showCartModal, showModal } from "./events";
+import {  createUpdateProductModal, showAlertModal, showCartModal, showModal } from "./events";
 import { convertObjectsArrayToString, convertStringToObjectsArray, getCities, getIPAddress } from "./helpers";
 import { getPaymentById } from "./payments";
 
@@ -11,5 +11,6 @@ export const SharedLogic = {
     getIPAddress,
     getPaymentById,
     getCities,
-    showAlertModal
+    showAlertModal,
+    createUpdateProductModal
 }

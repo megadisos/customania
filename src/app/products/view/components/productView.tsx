@@ -12,10 +12,9 @@ interface ProductViewProps {
 }
 
 export default function ProductView({productId}:ProductViewProps) {
-  console.log(productId)
   const query = useQuery('productById',()=>ProductsLogic.getProduct(productId))
   if(query.isFetching) return <p>Cargando ...</p>
-  const product = query.data
+  const product = query.data?.data
 const isOffer = product?.offer !== null ? true:false 
 
   return (

@@ -40,7 +40,6 @@ export default function ProductCard({product,section,size}:ProductCardProps) {
     const  {setTotalInCart} = useContext(CartContext)
    
     useEffect(()=>{
-        if(product._id === '64bb3cfc971b3fad04947924' && section === 'outstanding') console.log('holas ',product)
         if(product.sizes !== null){
             let foundAvailableSize = false;
             product.sizes.forEach(size=>{
